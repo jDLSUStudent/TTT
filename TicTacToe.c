@@ -13,6 +13,7 @@ void main()
                 {' ', ' ', ' ', ' ', ' '},
                         };
 
+    /*Run game*/
     for (; i < 25 && !nWinner; i++)
     {
         printf("\n");
@@ -25,12 +26,6 @@ void main()
 
         nPlayer = i%2 + 1;
 
-        /*
-        nValidMove = 
-        nRow > 0 && nRow < 6
-        nCol > 0 && nCol < 6
-        cBoard[row][column] != 'X' || cBoard[row][column] != 'O'
-        */
         do
         {
             printf("\n");    
@@ -41,8 +36,11 @@ void main()
             printf("Row (1-5): ");
             scanf("%d", &nRow);
 
+            /*set cBoard indices from input*/
             nIndex1 = nRow - 1;
             nIndex2 = nCol - 1;
+
+            /*validate move*/
             nValidMove = (nRow > 0 && nRow < 6) 
                         && (nCol > 0 && nCol < 6) 
                         && (cBoard[nIndex1][nIndex2] != 'X' 
@@ -52,23 +50,19 @@ void main()
         
         cBoard[nIndex1][nIndex2] = (nPlayer == 1) ? 'X' : 'O';
 
-        if(
-            (cBoard[0][0]==cBoard[1][1] 
+        /*check for winner*/
+        if((cBoard[0][0]==cBoard[1][1] 
             && cBoard[0][0]==cBoard[2][2] 
             && cBoard[0][0]==cBoard[3][3] 
             && cBoard[0][0]==cBoard[4][4]) 
             || (cBoard[0][4]==cBoard[1][3] 
             && cBoard[0][4]==cBoard[2][2] 
             && cBoard[0][4]==cBoard[3][1] 
-            && cBoard[0][4]==cBoard[4][0])
-        ) /*Diagonal*/
+            && cBoard[0][4]==cBoard[4][0])) /*Diagonal*/
 		   nWinner++;
         else
-        {
             for(j = 0; j <= 4; j++)  //need to set j = 0 in for-loop condition
-            {
-				if(
-                    (cBoard[j][0]==cBoard[j][1] 
+				if((cBoard[j][0]==cBoard[j][1] 
                     && cBoard[j][0]==cBoard[j][2]
                     && cBoard[j][0]==cBoard[j][3] 
                     && cBoard[j][0]==cBoard[j][4]
@@ -77,13 +71,8 @@ void main()
                     && cBoard[0][j]==cBoard[2][j]
                     && cBoard[0][j]==cBoard[3][j] 
                     && cBoard[0][j]==cBoard[4][j]
-                    && (cBoard[0][j]=='X' || cBoard[0][j]=='O'))
-                ) /*Vertical*/
-                {
-					nWinner++;
-                }
-            }
-        }
+                    && (cBoard[0][j]=='X' || cBoard[0][j]=='O'))) /*Vertical*/                
+					nWinner++; 
     }
 }
 
