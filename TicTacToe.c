@@ -3,8 +3,8 @@
 int nCheckValidity();
 void main() 
 {
-    int nCol = 0, nRow = 0, nPlayer = 0, i = 0;
-    int nValidMove = 0;
+    int nCol = 0, nRow = 0, nPlayer = 0, nWinner = 0, nValidMove = 0, i = 0;
+ 
     char cBoard [5][5] = {
                 {'_', '_', '_', '_', '_'},
                 {'_', '_', '_', '_', '_'},
@@ -13,7 +13,7 @@ void main()
                 {' ', ' ', ' ', ' ', ' '},
                         };
 
-    for (; i < 25; i++)
+    for (; i < 25 && !nWinner; i++)
     {
         printf("\n");
         printf("  1|2|3|4|5\n");
@@ -46,6 +46,10 @@ void main()
         } while (!nValidMove);
         
         cBoard[nRow-1][nCol-1] = (nPlayer == 1) ? 'X' : 'O';
+
+        if((cBoard[0][0]==cBoard[1][1] && cBoard[0][0]==cBoard[2][2] && cBoard[0][0]==cBoard[3][3] && cBoard[0][0]==cBoard[4][4]) ||
+		   (cBoard[0][4]==cBoard[1][3] && cBoard[0][4]==cBoard[2][2] && cBoard[0][4]==cBoard[3][1] && cBoard[0][4]==cBoard[4][0]))
+		   nWinner = nPlayer;
         
     }
 
