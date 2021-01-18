@@ -3,6 +3,7 @@
 int nValidateMove();
 int nCheckWinner();
 void move();
+void printBoard();
 
 void main() 
 {
@@ -19,14 +20,8 @@ void main()
     /*Run game*/
     for (; i < 25 && !nWinner; i++)
     {
-        printf("\n");
-        printf("  1|2|3|4|5\n");
-        printf("1:%c|%c|%c|%c|%c\n",cBoard[0][0],cBoard[0][1],cBoard[0][2],cBoard[0][3],cBoard[0][4]);
-        printf("2:%c|%c|%c|%c|%c\n",cBoard[1][0],cBoard[1][1],cBoard[1][2],cBoard[1][3],cBoard[1][4]);
-        printf("3:%c|%c|%c|%c|%c\n",cBoard[2][0],cBoard[2][1],cBoard[2][2],cBoard[2][3],cBoard[2][4]);
-        printf("4:%c|%c|%c|%c|%c\n",cBoard[3][0],cBoard[3][1],cBoard[3][2],cBoard[3][3],cBoard[3][4]);
-        printf("5:%c|%c|%c|%c|%c\n",cBoard[4][0],cBoard[4][1],cBoard[4][2],cBoard[4][3],cBoard[4][4]);
-
+        printBoard(cBoard);
+        
         nPlayer = i%2 + 1;
 
         do
@@ -54,6 +49,18 @@ void main()
         nWinner = nCheckWinner(cBoard);
     }
 }
+
+void printBoard(char cBoard[5][5])
+{
+    printf("\n");
+    printf("  1|2|3|4|5\n");
+    printf("1:%c|%c|%c|%c|%c\n",cBoard[0][0],cBoard[0][1],cBoard[0][2],cBoard[0][3],cBoard[0][4]);
+    printf("2:%c|%c|%c|%c|%c\n",cBoard[1][0],cBoard[1][1],cBoard[1][2],cBoard[1][3],cBoard[1][4]);
+    printf("3:%c|%c|%c|%c|%c\n",cBoard[2][0],cBoard[2][1],cBoard[2][2],cBoard[2][3],cBoard[2][4]);
+    printf("4:%c|%c|%c|%c|%c\n",cBoard[3][0],cBoard[3][1],cBoard[3][2],cBoard[3][3],cBoard[3][4]);
+    printf("5:%c|%c|%c|%c|%c\n",cBoard[4][0],cBoard[4][1],cBoard[4][2],cBoard[4][3],cBoard[4][4]);
+}
+
 void move(int nIndex1, int nIndex2, int nPlayer, char cBoard [5][5])
 {
     cBoard[nIndex1][nIndex2] = (nPlayer == 1) ? 'X' : 'O';
@@ -87,7 +94,6 @@ int nCheckWinner(char cBoard[5][5])
                 nWinner++;
 
     return nWinner;
-
 }
 
 int nValidateMove(int nRow,int nCol,int nBoardIndex)
