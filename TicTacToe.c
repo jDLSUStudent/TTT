@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-//int nCheckValidity();
+//int nValidateMove();
 void main() 
 {
     int nCol = 0, nRow = 0, nIndex1 = 0, nIndex2 = 0, nPlayer = 0, nWinner = 0, nValidMove = 0, i = 0, j = 0;
@@ -76,7 +76,7 @@ void main()
     }
 }
 
-/*int nCheckValidity(int nRow,int nCol,char cBoard[nRow][nCol])
+/*int nValiddateMove(int nRow,int nCol,char cBoard[nRow][nCol])
 {
     int nValid = 0;
 
