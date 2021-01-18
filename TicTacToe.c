@@ -3,7 +3,7 @@
 int nCheckValidity();
 void main() 
 {
-    int nCol = 0, nRow = 0, nPlayer = 0, nWinner = 0, nValidMove = 0, i = 0;
+    int nCol = 0, nRow = 0, nIndex1 = 0, nIndex2 = 0, nPlayer = 0, nWinner = 0, nValidMove = 0, i = 0;
  
     char cBoard [5][5] = {
                 {'_', '_', '_', '_', '_'},
@@ -34,22 +34,29 @@ void main()
         do
         {
             printf("\n");    
-            printf("Player %d, please choose a square to place your %c by selecting the column first \nand then the row (e.g. 1 5 for the bottom left square).\n", nPlayer, (nPlayer == 1) ? 'X' : 'O');
+            printf("Player %d, please choose a square to place your %c by selecting the column first \n"
+                    "and then the row (e.g. 1 5 for the bottom left square).\n", nPlayer, (nPlayer == 1) ? 'X' : 'O');
             printf("Column (1-5): ");
             scanf("%d", &nCol);
             printf("Row (1-5): ");
             scanf("%d", &nRow);
-            //printf("You have selected square %d-%d\n",nCol, nRow);
 
-            nValidMove = (nRow > 0 && nRow < 6) && (nCol > 0 && nCol < 6) && (cBoard[nRow][nCol] != 'X' && cBoard[nRow][nCol] != 'O');            
+            nIndex1 = nRow - 1;
+            nIndex2 = nCol - 1;
+            nValidMove = (nRow > 0 && nRow < 6) && (nCol > 0 && nCol < 6) 
+                        && (cBoard[nIndex1][nIndex2] != 'X' && cBoard[nIndex1][nIndex2] != 'O'); 
+            printf("nValidMove: %d\n", nValidMove);           
 
         } while (!nValidMove);
         
         cBoard[nRow-1][nCol-1] = (nPlayer == 1) ? 'X' : 'O';
 
-        if((cBoard[0][0]==cBoard[1][1] && cBoard[0][0]==cBoard[2][2] && cBoard[0][0]==cBoard[3][3] && cBoard[0][0]==cBoard[4][4]) ||
-		   (cBoard[0][4]==cBoard[1][3] && cBoard[0][4]==cBoard[2][2] && cBoard[0][4]==cBoard[3][1] && cBoard[0][4]==cBoard[4][0]))
-		   nWinner = nPlayer;
+        if((cBoard[0][0]==cBoard[1][1] && cBoard[0][0]==cBoard[2][2] 
+            && cBoard[0][0]==cBoard[3][3] && cBoard[0][0]==cBoard[4][4]) 
+            ||
+		    (cBoard[0][4]==cBoard[1][3] && cBoard[0][4]==cBoard[2][2] 
+            && cBoard[0][4]==cBoard[3][1] && cBoard[0][4]==cBoard[4][0]))
+		   nWinner++;
         
     }
 
