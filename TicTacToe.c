@@ -1,0 +1,70 @@
+#include <stdio.h>
+
+int nCheckValidity();
+void main() 
+{
+    int nCol = 0, nRow = 0, nPlayer = 0, i = 0;
+    int nValidMove = 0;
+    char cBoard [5][5] = {
+                {'_', '_', '_', '_', '_'},
+                {'_', '_', '_', '_', '_'},
+                {'_', '_', '_', '_', '_'},
+                {'_', '_', '_', '_', '_'},
+                {' ', ' ', ' ', ' ', ' '},
+                        };
+
+    for (; i < 25; i++)
+    {
+        printf("\n");
+        printf("  1|2|3|4|5\n");
+        printf("1:%c|%c|%c|%c|%c\n",cBoard[0][0],cBoard[0][1],cBoard[0][2],cBoard[0][3],cBoard[0][4]);
+        printf("2:%c|%c|%c|%c|%c\n",cBoard[1][0],cBoard[1][1],cBoard[1][2],cBoard[1][3],cBoard[1][4]);
+        printf("3:%c|%c|%c|%c|%c\n",cBoard[2][0],cBoard[2][1],cBoard[2][2],cBoard[2][3],cBoard[2][4]);
+        printf("4:%c|%c|%c|%c|%c\n",cBoard[3][0],cBoard[3][1],cBoard[3][2],cBoard[3][3],cBoard[3][4]);
+        printf("5:%c|%c|%c|%c|%c\n",cBoard[4][0],cBoard[4][1],cBoard[4][2],cBoard[4][3],cBoard[4][4]);
+
+        nPlayer = i%2 + 1;
+
+        /*
+        nValidMove = 
+        nRow > 0 && nRow < 6
+        nCol > 0 && nCol < 6
+        cBoard[row][column] != 'X' || cBoard[row][column] != 'O'
+        */
+        do
+        {
+            printf("\n");    
+            printf("Player %d, please choose a square to place your %c by selecting the column first \nand then the row (e.g. 1 5 for the bottom left square).\n", nPlayer, (nPlayer == 1) ? 'X' : 'O');
+            printf("Column (1-5): ");
+            scanf("%d", &nCol);
+            printf("Row (1-5): ");
+            scanf("%d", &nRow);
+            //printf("You have selected square %d-%d\n",nCol, nRow);
+
+            nValidMove = (nRow > 0 && nRow < 6) && (nCol > 0 && nCol < 6) && (cBoard[nRow][nCol] != 'X' && cBoard[nRow][nCol] != 'O');            
+
+        } while (!nValidMove);
+        
+        cBoard[nRow-1][nCol-1] = (nPlayer == 1) ? 'X' : 'O';
+        
+    }
+
+/*
+    printf("\n");
+    printf("  1|2|3|4|5\n");
+    printf("1|%c|%c|%c|%c|%c\n",cBoard[0][0],cBoard[0][1],cBoard[0][2],cBoard[0][3],cBoard[0][4]);
+    printf("2|%c|%c|%c|%c|%c\n",cBoard[1][0],cBoard[1][1],cBoard[1][2],cBoard[1][3],cBoard[1][4]);
+    printf("3|%c|%c|%c|%c|%c\n",cBoard[2][0],cBoard[2][1],cBoard[2][2],cBoard[2][3],cBoard[2][4]);
+    printf("4|%c|%c|%c|%c|%c\n",cBoard[3][0],cBoard[3][1],cBoard[3][2],cBoard[3][3],cBoard[3][4]);
+    printf("5|%c|%c|%c|%c|%c\n",cBoard[4][0],cBoard[4][1],cBoard[4][2],cBoard[4][3],cBoard[4][4]);
+*/
+}
+
+int nCheckValidity(int nRow,int nCol,char cBoard[nRow][nCol])
+{
+    int nValid = 0;
+
+    nValid = (nRow > 0 && nRow < 6) && (nCol > 0 && nCol < 6) && (cBoard[nRow][nCol] != 'X' && cBoard[nRow][nCol] != 'O');
+
+    return nValid;
+}
