@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-//int nValidateMove();
+int nValidateMove();
 void main() 
 {
     int nCol = 0, nRow = 0, nIndex1 = 0, nIndex2 = 0, nPlayer = 0, nWinner = 0, nValidMove = 0, i = 0, j = 0;
@@ -41,10 +41,7 @@ void main()
             nIndex2 = nCol - 1;
 
             /*validate move*/
-            nValidMove = (nRow > 0 && nRow < 6) 
-                        && (nCol > 0 && nCol < 6) 
-                        && (cBoard[nIndex1][nIndex2] != 'X' 
-                        && cBoard[nIndex1][nIndex2] != 'O'); 
+            nValidMove = nValidateMove(nRow, nCol, cBoard[nIndex1][nIndex2]);
 
         } while (!nValidMove);
         
@@ -76,11 +73,13 @@ void main()
     }
 }
 
-/*int nValiddateMove(int nRow,int nCol,char cBoard[nRow][nCol])
+int nValidateMove(int nRow,int nCol,int nBoardIndex)
 {
     int nValid = 0;
 
-    nValid = (nRow > 0 && nRow < 6) && (nCol > 0 && nCol < 6) && (cBoard[nRow][nCol] != 'X' && cBoard[nRow][nCol] != 'O');
+    nValid = (nRow > 0 && nRow < 6) 
+            && (nCol > 0 && nCol < 6) 
+            && (nBoardIndex != 'X' && nBoardIndex != 'O');
 
     return nValid;
-}*/
+}
