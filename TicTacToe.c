@@ -3,6 +3,7 @@
 int nValidateMove();
 int nCheckWinner();
 int nCheckPlayer();
+void playerInput();
 void move();
 void printBoard();
 
@@ -49,6 +50,11 @@ void main()
         /*check for winner*/
         nWinner = nCheckWinner(cBoard);
     }
+}
+
+void playerInput()
+{
+    
 }
 
 void printBoard(char cBoard[5][5])
