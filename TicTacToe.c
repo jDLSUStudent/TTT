@@ -49,7 +49,7 @@ void main()
 
         } while (!nValidMove);
         
-        cBoard[nRow-1][nCol-1] = (nPlayer == 1) ? 'X' : 'O';
+        cBoard[nIndex1][nIndex2] = (nPlayer == 1) ? 'X' : 'O';
 
         if((cBoard[0][0]==cBoard[1][1] && cBoard[0][0]==cBoard[2][2] 
             && cBoard[0][0]==cBoard[3][3] && cBoard[0][0]==cBoard[4][4]) 
