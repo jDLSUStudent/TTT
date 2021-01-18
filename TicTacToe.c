@@ -2,12 +2,13 @@
 
 int nValidateMove();
 int nCheckWinner();
+int nCheckPlayer();
 void move();
 void printBoard();
 
 void main() 
 {
-    int nCol = 0, nRow = 0, nIndex1 = 0, nIndex2 = 0, nPlayer = 0, nWinner = 0, nValidMove = 0, i = 0, j = 0;
+    int nCol = 0, nRow = 0, nIndex1 = 0, nIndex2 = 0, nPlayer = 0, nWinner = 0, nValidMove = 0, i = 0;
  
     char cBoard [5][5] = {
                 {'_', '_', '_', '_', '_'},
@@ -21,8 +22,8 @@ void main()
     for (; i < 25 && !nWinner; i++)
     {
         printBoard(cBoard);
-        
-        nPlayer = i%2 + 1;
+
+        nPlayer = nCheckPlayer(i);
 
         do
         {
@@ -61,7 +62,12 @@ void printBoard(char cBoard[5][5])
     printf("5:%c|%c|%c|%c|%c\n",cBoard[4][0],cBoard[4][1],cBoard[4][2],cBoard[4][3],cBoard[4][4]);
 }
 
-void move(int nIndex1, int nIndex2, int nPlayer, char cBoard [5][5])
+int nCheckPlayer(int i)
+{
+    return i%2 + 1;
+}
+
+void move(int nIndex1, int nIndex2, int nPlayer, char cBoard [5][5]) //is this needed?
 {
     cBoard[nIndex1][nIndex2] = (nPlayer == 1) ? 'X' : 'O';
 }
