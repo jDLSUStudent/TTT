@@ -2,6 +2,7 @@
 
 int nValidateMove();
 int nCheckWinner();
+void move();
 
 void main() 
 {
@@ -47,11 +48,15 @@ void main()
 
         } while (!nValidMove);
         
-        cBoard[nIndex1][nIndex2] = (nPlayer == 1) ? 'X' : 'O';
+        move(nIndex1, nIndex2, nPlayer, cBoard);
 
         /*check for winner*/
         nWinner = nCheckWinner(cBoard);
     }
+}
+void move(int nIndex1, int nIndex2, int nPlayer, char cBoard [5][5])
+{
+    cBoard[nIndex1][nIndex2] = (nPlayer == 1) ? 'X' : 'O';
 }
 
 int nCheckWinner(char cBoard[5][5])
