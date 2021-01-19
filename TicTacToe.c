@@ -3,7 +3,7 @@
 int nValidateMove();
 int nCheckWinner();
 int nCheckPlayer();
-void playerInput();
+void playerInput(); //building
 void move();
 void printBoard();
 
@@ -54,7 +54,9 @@ void main()
 
 void playerInput()
 {
-    
+    /*
+    Needs to return 2 integers for nValidateMove() and move()
+    */
 }
 
 void printBoard(char cBoard[5][5])
@@ -73,7 +75,7 @@ int nCheckPlayer(int i)
     return i%2 + 1;
 }
 
-void move(int nIndex1, int nIndex2, int nPlayer, char cBoard [5][5]) //is this needed?
+void move(int nIndex1, int nIndex2, int nPlayer, char cBoard[5][5]) //is this needed?
 {
     cBoard[nIndex1][nIndex2] = (nPlayer == 1) ? 'X' : 'O';
 }
