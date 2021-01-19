@@ -3,9 +3,10 @@
 int nValidateMove();
 int nCheckWinner();
 int nCheckPlayer();
-void playerInput(); //building
 void move();
 void printBoard();
+
+int nPlayerInput(int (*token(int i)));
 
 void main() 
 {
@@ -52,11 +53,28 @@ void main()
     }
 }
 
-void playerInput()
+int nPlayerInput(int (*token(int i)));
 {
     /*
+    Needs nPlayer passed in
+
     Needs to return 2 integers for nValidateMove() and move()
     */
+
+    printf("\n");    
+    printf("Player %d, please choose a square to place your %c by selecting the column first \n"
+            "and then the row (e.g. 1 5 for the bottom left square).\n", token(i), (token(i) == 1) ? 'X' : 'O');
+    printf("Column (1-5): ");
+    scanf("%d", &nCol);
+    printf("Row (1-5): ");
+    scanf("%d", &nRow);
+
+    /*set cBoard indices from input*/
+    nIndex1 = nRow - 1;
+    nIndex2 = nCol - 1;
+
+
+
 }
 
 void printBoard(char cBoard[5][5])
