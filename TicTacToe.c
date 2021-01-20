@@ -10,7 +10,7 @@ void printBoard();
 
 void main() 
 {
-    int nCol = 0, nRow = 0, nIndex1 = 0, nIndex2 = 0, nPlayer = 0, nWinner = 0, nValidMove = 0, i = 0;
+    int nCol = 0, nRow = 0, nIndex1 = 0, nIndex2 = 0, nPlayer = 0, nWinner = 0, i = 0;
  
     char cBoard [5][5] = {
                 {'_', '_', '_', '_', '_'},
@@ -41,9 +41,8 @@ void main()
             nIndex1 = nRow - 1;
             nIndex2 = nCol - 1;
 
-            /*validate move*/
-            //nValidMove = nValidateMove(nRow, nCol, cBoard[nIndex1][nIndex2]);
-
+        
+        /*validate move*/
         } while (!nValidateMove(nRow, nCol, cBoard[nIndex1][nIndex2]));
         
         move(nIndex1, nIndex2, nPlayer, cBoard);
@@ -53,7 +52,21 @@ void main()
     }
 }
 
+int nAskInput(int nPlayer)
+{
+    int nCol = 0, nRow = 0;
+    int nIdx[2];
 
+        printf("\n");    
+        printf("Player %d, please choose a square to place your %c by selecting the column first \n"
+                "and then the row (e.g. 1 5 for the bottom left square).\n", nPlayer, (nPlayer == 1) ? 'X' : 'O');
+        printf("Column (1-5): ");
+        nIdx[1] = scanf("%d", &nCol);
+        printf("Row (1-5): ");
+        nIdx[0] = scanf("%d", &nRow);
+
+
+}
 
 void printBoard(char cBoard[5][5])
 {
