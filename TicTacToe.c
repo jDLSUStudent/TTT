@@ -3,6 +3,7 @@
 int nValidateMove();
 int nCheckWinner();
 int nCheckPlayer();
+int *nAskInput();
 void move();
 void printBoard();
 
@@ -10,7 +11,8 @@ void printBoard();
 
 void main() 
 {
-    int nCol = 0, nRow = 0, nIndex1 = 0, nIndex2 = 0, nPlayer = 0, nWinner = 0, i = 0;
+    int *n, nIndex1 = 0, nIndex2 = 0, nPlayer = 0, nWinner = 0, nRow = 0, nCol = 0, i = 0;
+    int v = 0;
  
     char cBoard [5][5] = {
                 {'_', '_', '_', '_', '_'},
@@ -29,18 +31,21 @@ void main()
 
         do
         {
-            printf("\n");    
+            /*printf("\n");    
             printf("Player %d, please choose a square to place your %c by selecting the column first \n"
                     "and then the row (e.g. 1 5 for the bottom left square).\n", nPlayer, (nPlayer == 1) ? 'X' : 'O');
             printf("Column (1-5): ");
             scanf("%d", &nCol);
             printf("Row (1-5): ");
             scanf("%d", &nRow);
-
+            */
             /*set cBoard indices from input*/
-            nIndex1 = nRow - 1;
-            nIndex2 = nCol - 1;
-
+            n = nAskInput(nPlayer);
+            nRow = n[0];
+            nCol = n[1];
+            nIndex1 = --n[0];
+            nIndex2 = --n[1];
+            printf("n[]=%d, %d\n", n[0], n[1]);
         
         /*validate move*/
         } while (!nValidateMove(nRow, nCol, cBoard[nIndex1][nIndex2]));
@@ -52,19 +57,23 @@ void main()
     }
 }
 
-int nAskInput(int nPlayer)
+int *nAskInput(int nPlayer)
 {
     int nCol = 0, nRow = 0;
     int nIdx[2];
 
-        printf("\n");    
+        printf("\n");
         printf("Player %d, please choose a square to place your %c by selecting the column first \n"
                 "and then the row (e.g. 1 5 for the bottom left square).\n", nPlayer, (nPlayer == 1) ? 'X' : 'O');
         printf("Column (1-5): ");
-        nIdx[1] = scanf("%d", &nCol);
+        scanf("%d", &nCol);
         printf("Row (1-5): ");
-        nIdx[0] = scanf("%d", &nRow);
+        scanf("%d", &nRow);
+        nIdx[1] = nCol;
+        nIdx[0] = nRow;
+        printf("nIdx[]=%d, %d\n", nIdx[0], nIdx[1]);
 
+    return nIdx;
 
 }
 
@@ -122,7 +131,7 @@ int nCheckWinner(char cBoard[5][5])
 int nValidateMove(int nRow,int nCol,int nBoardIndex)
 {
     int nValid = 0;
-
+    printf("nRow/nCol = %d %d\n", nRow, nCol);
     nValid = (nRow > 0 && nRow < 6) 
             && (nCol > 0 && nCol < 6) 
             && (nBoardIndex != 'X' && nBoardIndex != 'O');
