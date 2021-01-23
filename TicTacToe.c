@@ -46,6 +46,7 @@ void main()
     }
 }
 
+/* function to ask the player for input and return the indices of the board*/
 int *nAskInput(int nPlayer)
 {
     int nCol = 0, nRow = 0;
@@ -55,11 +56,9 @@ int *nAskInput(int nPlayer)
         printf("Player %d, please choose a square to place your %c by selecting the column first \n"
                 "and then the row (e.g. 1 5 for the bottom left square).\n", nPlayer, (nPlayer == 1) ? 'X' : 'O');
         printf("Column (1-5): ");
-        scanf("%d", &nCol);
+        scanf("%d", &nIdx[1]);
         printf("Row (1-5): ");
-        scanf("%d", &nRow);
-        nIdx[1] = nCol;
-        nIdx[0] = nRow;
+        scanf("%d", &nIdx[0]);
 
     return nIdx;
 
