@@ -40,10 +40,9 @@ void main()
         
         move(nIndex1, nIndex2, nPlayer(i), cBoard);
 
-        if (nCheckWinner(cBoard))
-            gameResult(nPlayer(i), nCheckWinner(cBoard));   
     }
 
+    gameResult(nPlayer(i-1), nCheckWinner(cBoard));
     printBoard(cBoard);
     printf("\n");
 
