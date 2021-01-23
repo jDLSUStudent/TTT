@@ -2,14 +2,14 @@
 
 int nValidateMove();
 int nCheckWinner();
-int nCheckPlayer();
+int nPlayer();
 int *nAskInput();
 void move();
 void printBoard();
 
 void main() 
 {
-    int nIndex1 = 0, nIndex2 = 0, nPlayer = 0, nWinner = 0, nRow = 0, nCol = 0, i = 0;
+    int nIndex1 = 0, nIndex2 = 0, nRow = 0, nCol = 0, i = 0;
     int *n = NULL;
  
     char cBoard [5][5] = {
@@ -25,12 +25,12 @@ void main()
     {
         printBoard(cBoard);
 
-        nPlayer = nCheckPlayer(i);
+        //nPlayer = nCheckPlayer(i);
 
         do
         {
             /*set cBoard indices from input*/
-            n = nAskInput(nPlayer);
+            n = nAskInput(nPlayer(i));
             nRow = n[0]; /*WHy do I need to do this?*/
             nCol = n[1];
             nIndex1 = --n[0];
@@ -39,10 +39,8 @@ void main()
         /*validate move*/
         } while (!nValidateMove(nRow, nCol, cBoard[nIndex1][nIndex2]));
         
-        move(nIndex1, nIndex2, nPlayer, cBoard);
+        move(nIndex1, nIndex2, nPlayer(i), cBoard);
 
-        /*check for winner*/
-        //nWinner = nCheckWinner(cBoard);
     }
 }
 
@@ -77,7 +75,7 @@ void printBoard(char cBoard[5][5])
 }
 
 /* returns the player number */
-int nCheckPlayer(int i)
+int nPlayer(int i)
 {
     return i%2 + 1;
 }
