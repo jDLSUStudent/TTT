@@ -40,10 +40,12 @@ void main()
         
         move(nIndex1, nIndex2, nPlayer(i), cBoard);
 
+        if (nCheckWinner(cBoard))
+            gameResult(nPlayer(i), nCheckWinner(cBoard));   
     }
 
-    gameResult(nPlayer(i), nCheckWinner(cBoard));
     printBoard(cBoard);
+    printf("\n");
 
 }
 
@@ -136,10 +138,12 @@ int nValidateMove(int nRow,int nCol,int nBoardIndex)
 /* print the results of the game */
 void gameResult(int nPlayer, int nCheckWinner)
 {
+    printf("\n");
+
     if (nCheckWinner)
     {
         printf("%c Wins!\n", (nPlayer == 1) ? 'X' : 'O');
-        printf("Great jobs Player %d!\n", nPlayer);
+        printf("Good job Player %d!\n", nPlayer);
     }
     else
         printf("Its a draw!\n");
