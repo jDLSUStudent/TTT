@@ -142,7 +142,7 @@ void gameResult(int nPlayer, int nCheckWinner)
 
     if (nCheckWinner)
     {
-        printf("%c Wins!\n", (nPlayer == 1) ? 'X' : 'O');
+        printf("%c Wins! ", (nPlayer == 1) ? 'X' : 'O');
         printf("Good job Player %d!\n", nPlayer);
     }
     else
