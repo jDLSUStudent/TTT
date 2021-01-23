@@ -21,7 +21,7 @@ void main()
                         };
 
     /*Run game*/
-    for (; i < 25 && !nWinner; i++)
+    for (; i < 25 && !nCheckWinner(cBoard); i++)
     {
         printBoard(cBoard);
 
@@ -42,7 +42,7 @@ void main()
         move(nIndex1, nIndex2, nPlayer, cBoard);
 
         /*check for winner*/
-        nWinner = nCheckWinner(cBoard);
+        //nWinner = nCheckWinner(cBoard);
     }
 }
 
@@ -64,6 +64,7 @@ int *nAskInput(int nPlayer)
 
 }
 
+/* prints the board */
 void printBoard(char cBoard[5][5])
 {
     printf("\n");
@@ -75,16 +76,19 @@ void printBoard(char cBoard[5][5])
     printf("5:%c|%c|%c|%c|%c\n",cBoard[4][0],cBoard[4][1],cBoard[4][2],cBoard[4][3],cBoard[4][4]);
 }
 
+/* returns the player number */
 int nCheckPlayer(int i)
 {
     return i%2 + 1;
 }
 
+/* assign's the player character to the correct board index */
 void move(int nIndex1, int nIndex2, int nPlayer, char cBoard[5][5]) //is this needed?
 {
     cBoard[nIndex1][nIndex2] = (nPlayer == 1) ? 'X' : 'O';
 }
 
+/* checks the board after each mve to determine if there is a winner */
 int nCheckWinner(char cBoard[5][5])
 {
     int nWinner = 0, j = 0;
@@ -115,6 +119,8 @@ int nCheckWinner(char cBoard[5][5])
     return nWinner;
 }
 
+
+/* validates each set if inputs from the player */
 int nValidateMove(int nRow,int nCol,int nBoardIndex)
 {
     int nValid = 0;
