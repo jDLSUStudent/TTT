@@ -6,6 +6,7 @@ int nPlayer();
 int *nAskInput();
 void move();
 void printBoard();
+void gameResult();
 
 void main() 
 {
@@ -25,8 +26,6 @@ void main()
     {
         printBoard(cBoard);
 
-        //nPlayer = nCheckPlayer(i);
-
         do
         {
             /*set cBoard indices from input*/
@@ -42,6 +41,10 @@ void main()
         move(nIndex1, nIndex2, nPlayer(i), cBoard);
 
     }
+
+    gameResult(nPlayer(i), nCheckWinner(cBoard));
+    printBoard(cBoard);
+
 }
 
 /* function to ask the player for input and return the indices of the board*/
@@ -128,4 +131,16 @@ int nValidateMove(int nRow,int nCol,int nBoardIndex)
             && (nBoardIndex != 'X' && nBoardIndex != 'O');
 
     return nValid;
+}
+
+/* print the results of the game */
+void gameResult(int nPlayer, int nCheckWinner)
+{
+    if (nCheckWinner)
+    {
+        printf("%c Wins!\n", (nPlayer == 1) ? 'X' : 'O');
+        printf("Great jobs Player %d!\n", nPlayer);
+    }
+    else
+        printf("Its a draw!\n");
 }
