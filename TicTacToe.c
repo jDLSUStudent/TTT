@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+/*
+    GAME LOGIC FUNCTIONS
+*/
 int nValidateMove();
 int nCheckWinner();
 int nPlayer();
@@ -7,6 +10,11 @@ int *nAskInput();
 void move();
 void printBoard();
 void gameResult();
+//build printing abilities and asking for input and storing choices
+/*
+    SPECIAL ABILITIES FUNCTIONS
+*/
+void extraTurn();
 
 void main() 
 {
@@ -47,7 +55,9 @@ void main()
     printf("\n");
 
 }
-
+/*
+    GAME LOGIC FUNCTIONS' DEFINITIONS
+*/
 /* function to ask the player for input and return the indices of the board*/
 int *nAskInput(int nPlayer)
 {
@@ -121,7 +131,6 @@ int nCheckWinner(char cBoard[5][5])
     return nWinner;
 }
 
-
 /* validates each set if inputs from the player */
 int nValidateMove(int nRow,int nCol,int nBoardIndex)
 {
@@ -146,4 +155,24 @@ void gameResult(int nPlayer, int nCheckWinner)
     }
     else
         printf("Its a draw!\n");
+}
+
+void printAbilities()
+{
+    printf("You may choose from the following special abilities for the game:\n"
+            "1. Extra Turn\n"
+            "2. Steal\n"
+            "3. Clean Corners\n"
+            "4. Row Wipe\n"
+            "5. Lady's Choice\n"
+            "6. Even It Out\n"
+            "7. Missed Chance\n"
+            "8. Block\n");
+}
+/*
+    SPECIAL ABILITIES FUNCTIONS' DEFINITIONS
+*/
+void extraTurn()
+{
+
 }
