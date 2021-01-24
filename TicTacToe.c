@@ -39,10 +39,11 @@ void main()
     printf("Player 2\n");
     nPlayer2Abilities = nChooseAbilities(nNumOfAbilities);
 
-    for (int j = 0; j < nNumOfAbilities; j++)
+    //NOTE: Use nNumOfAbilities to determine length of array in loops
+    /*for (int j = 0; j < nNumOfAbilities; j++)
     {
         printf("arr[%d]=%d\n", j, nPlayer1Abilities[j]);
-    }
+    }*/
 
     for (; i < 25 && !nCheckWinner(cBoard); i++)
     {
@@ -176,7 +177,7 @@ int printAbilities()
     int nChoices = 0;
 
     printf("Each player may choose from the following special abilities to use during the game:\n"
-            "NOTE: Each ability can only be used once.\n"
+            "NOTE: Each ability can only be used once. DO NOT CHOOSE AN ABILITY MULTIPLE TIMES.\n"
             "1. Extra Turn\n"
             "2. Steal\n"
             "3. Clean Corners\n"
