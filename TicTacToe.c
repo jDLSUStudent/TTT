@@ -7,6 +7,8 @@ int nValidateMove();
 int nCheckWinner();
 int nPlayer();
 int *nAskInput();
+int printAbilities();
+int *nChooseAbilities();
 void move();
 void printBoard();
 void gameResult();
@@ -18,8 +20,8 @@ void extraTurn();
 
 void main() 
 {
-    int nIndex1 = 0, nIndex2 = 0, nRow = 0, nCol = 0, i = 0;
-    int *n = NULL;
+    int nNumOfAbilities = 0, nIndex1 = 0, nIndex2 = 0, nRow = 0, nCol = 0, i = 0;
+    int *n = NULL, *nPlayer1Abilities = NULL, *nPlayer2Abilities = NULL;
  
     char cBoard [5][5] = {
                 {'_', '_', '_', '_', '_'},
@@ -30,6 +32,18 @@ void main()
                         };
 
     /*Run game*/
+    nNumOfAbilities = printAbilities();
+
+    printf("Player 1\n");
+    nPlayer1Abilities = nChooseAbilities(nNumOfAbilities);
+    printf("Player 2\n");
+    nPlayer2Abilities = nChooseAbilities(nNumOfAbilities);
+
+    for (int j = 0; j < nNumOfAbilities; j++)
+    {
+        printf("arr[%d]=%d\n", j, nPlayer1Abilities[j]);
+    }
+
     for (; i < 25 && !nCheckWinner(cBoard); i++)
     {
         printBoard(cBoard);
@@ -157,11 +171,12 @@ void gameResult(int nPlayer, int nCheckWinner)
         printf("Its a draw!\n");
 }
 
-void printAbilities()
+int printAbilities()
 {
-    int nChoices = 0, i = 0;
+    int nChoices = 0;
 
-    printf("You may choose from the following special abilities to use during the game:\n"
+    printf("Each player may choose from the following special abilities to use during the game:\n"
+            "NOTE: Each ability can only be used once.\n"
             "1. Extra Turn\n"
             "2. Steal\n"
             "3. Clean Corners\n"
@@ -170,14 +185,28 @@ void printAbilities()
             "6. Even It Out\n"
             "7. Missed Chance\n"
             "8. Block\n"
-            "How many abilities would you like to choose?: ");
+            "How many abilities would you like to to be able to use?: ");
     scanf("%d", &nChoices);
 
-    for (; i <= nChoices; i++)
+    return nChoices;
+
+}
+
+int *nChooseAbilities(int nChoices)
+{
+    int nAbilities[nChoices], i = 0;
+
+    for (; i < nChoices; i++)
     {
-        printf("Please choose an ability by entering its number: ");
+        if (nChoices-i == 1)
+            printf("Please choose 1 more ability by entering its number: ");
+        else
+            printf("Please choose %d more abilities by entering the ability's number: ", nChoices-i);
         
+        scanf("%d", &nAbilities[i]);       
     }
+
+    return nAbilities;
 }
 /*
     SPECIAL ABILITIES FUNCTIONS' DEFINITIONS
