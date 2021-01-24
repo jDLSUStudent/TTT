@@ -159,7 +159,9 @@ void gameResult(int nPlayer, int nCheckWinner)
 
 void printAbilities()
 {
-    printf("You may choose from the following special abilities for the game:\n"
+    int nChoices = 0, i = 0;
+
+    printf("You may choose from the following special abilities to use during the game:\n"
             "1. Extra Turn\n"
             "2. Steal\n"
             "3. Clean Corners\n"
@@ -167,7 +169,15 @@ void printAbilities()
             "5. Lady's Choice\n"
             "6. Even It Out\n"
             "7. Missed Chance\n"
-            "8. Block\n");
+            "8. Block\n"
+            "How many abilities would you like to choose?: ");
+    scanf("%d", &nChoices);
+
+    for (; i <= nChoices; i++)
+    {
+        printf("Please choose an ability by entering its number: ");
+        
+    }
 }
 /*
     SPECIAL ABILITIES FUNCTIONS' DEFINITIONS
