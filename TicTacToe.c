@@ -42,8 +42,11 @@ void main()
     {
         printBoard(cBoard);
 
-     while (!nValidateMove(nPlayerMove[0], nPlayerMove[1], cBoard[--nPlayerMove[0]][--nPlayerMove[1]]));
+        do
+        {   /*set cBoard indices from input*/
             nAskInput(nPlayerMove, nPlayer(i));
+        /*validate move*/
+        } while (!nValidateMove(nPlayerMove[0], nPlayerMove[1], cBoard[--nPlayerMove[0]][--nPlayerMove[1]]));
         
         move(nPlayerMove[0], nPlayerMove[1], nPlayer(i), cBoard);
 
