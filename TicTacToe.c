@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+/*are these considered to be global variables? */
 const int PLAYERS = 2;
 const int CHOICES = 8;
 /*
@@ -14,7 +15,7 @@ void move();
 void nAskInput();
 void printBoard();
 void gameResult();
-//build printing abilities and asking for input and storing choices
+void playerAbilities();
 /*
     SPECIAL ABILITIES FUNCTIONS
 */
@@ -41,6 +42,7 @@ void main()
     for (; i < 25 && !nCheckWinner(cBoard); i++)
     {
         printBoard(cBoard);
+        playerAbilities(nAbilities, nPlayer(i));
 
         do
         {   /*set cBoard indices from input*/
@@ -192,6 +194,14 @@ void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
             scanf("%d", &nAbilities[i][j]);       
         }
 
+    }
+}
+void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer)
+{
+    for (size_t i = 0; i < CHOICES; i++)
+    {
+        if (nAbilities[nPlayer][i] != 0)
+            printf("%d ", nAbilities[nPlayer][i]);
     }
 }
 /*
