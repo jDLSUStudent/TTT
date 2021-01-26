@@ -48,7 +48,7 @@ void main()
         /*validate move*/
         } while (!nValidateMove(nPlayerMove[0], nPlayerMove[1], cBoard[--nPlayerMove[0]][--nPlayerMove[1]]));
         
-        move(nPlayerMove[0], nPlayerMove[1], nPlayer(i), cBoard);
+        move(nPlayerMove, nPlayer(i), cBoard);
 
     }
 
@@ -94,9 +94,9 @@ int nPlayer(int i)
 }
 
 /* assign's the player character to the correct board index */
-void move(int nRow, int nCol, int nPlayer, char cBoard[5][5]) //is this needed?
+void move(int nPlayerMove[2], int nPlayer, char cBoard[5][5]) //is this needed?
 {
-    cBoard[nRow][nCol] = (nPlayer == 1) ? 'X' : 'O';
+    cBoard[nPlayerMove[0]][nPlayerMove[1]] = (nPlayer == 1) ? 'X' : 'O';
 }
 
 /* checks the board after each mve to determine if there is a winner */
@@ -179,13 +179,13 @@ int printAbilities()
 
 int nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
 {
-    int nNum = numOfChoices(), i = 0, j = 0; 
+    int nNum = numOfChoices(), i = 0, j; 
 
     for (; i < PLAYERS; i++)
     {
         printf("Player %d\n", (i == 0) ? 1 : 2 );
 
-        for (j=0; j < nNum; j++)
+        for (j = 0; j < nNum; j++)
         {
             if (nNum-j == 1)
                 printf("Please choose 1 more ability by entering its number: ");
