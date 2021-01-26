@@ -8,10 +8,10 @@ const int CHOICES = 8;
 int nValidateMove();
 int nCheckWinner();
 int nPlayer();
-int nAskInput();
 int printAbilities();
-int nChooseAbilities();
+void nChooseAbilities();
 void move();
+void nAskInput();
 void printBoard();
 void gameResult();
 //build printing abilities and asking for input and storing choices
@@ -61,7 +61,7 @@ void main()
     GAME LOGIC FUNCTIONS' DEFINITIONS
 */
 /* function to ask the player for input and return the indices of the board*/
-int nAskInput(int nPlayerMove[2], int nPlayer)
+void nAskInput(int nPlayerMove[2], int nPlayer)
 {
         printf("\n");
         printf("Player %d, please choose a square to place your %c by selecting the column first \n"
@@ -70,9 +70,6 @@ int nAskInput(int nPlayerMove[2], int nPlayer)
         scanf("%d", &nPlayerMove[1]);
         printf("Row (1-5): ");
         scanf("%d", &nPlayerMove[0]);
-
-    return nPlayerMove;
-
 }
 
 /* prints the board */
@@ -177,7 +174,7 @@ int printAbilities()
 
 }
 
-int nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
+void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
 {
     int nNum = numOfChoices(), i = 0, j; 
 
@@ -196,7 +193,6 @@ int nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
         }
 
     }
-    return nAbilities;
 }
 /*
     SPECIAL ABILITIES FUNCTIONS' DEFINITIONS
