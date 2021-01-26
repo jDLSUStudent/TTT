@@ -8,7 +8,7 @@ const int CHOICES = 8;
 int nValidateMove();
 int nCheckWinner();
 int nPlayer();
-int *nAskInput();
+int nAskInput();
 int printAbilities();
 int nChooseAbilities();
 void move();
@@ -23,7 +23,8 @@ void extraTurn();
 void main() 
 {
     int nNum = 0, nIndex1 = 0, nIndex2 = 0, nRow = 0, nCol = 0, i = 0;
-    int *n = NULL, *a;
+    int nAbilities[PLAYERS][CHOICES];
+    int nBoardIndex[2];
  
     char cBoard [5][5] = {
                 {'_', '_', '_', '_', '_'},
@@ -36,17 +37,9 @@ void main()
     /*Run game*/
     nNum = printAbilities();
 
-    int nAbilities[PLAYERS][CHOICES];
 
     nChooseAbilities(nAbilities, nNum);
 
-    for (size_t i = 0; i < PLAYERS; i++)
-    {
-        for (size_t j = 0; j < nNum; j++)
-        {
-            printf("arr[%d][%d] = %x\n",i, j, nAbilities[i][j]);
-        }
-    }
 
 
     //NOTE: Use nNum to determine length of array in loops
@@ -58,16 +51,18 @@ void main()
         do
         {
             /*set cBoard indices from input*/
-            n = nAskInput(nPlayer(i));
-            nRow = n[0]; /*WHy do I need to do this?*/
-            nCol = n[1];
-            nIndex1 = --n[0];
-            nIndex2 = --n[1];
+            nAskInput(nBoardIndex, nPlayer(i));
+            /*
+            nRow = nBoardIndex[0];
+            nCol = nBoardIndex[1];
+            nIndex1 = --nBoardIndex[0];
+            nIndex2 = --nBoardIndex[1];
+            */
         
         /*validate move*/
-        } while (!nValidateMove(nRow, nCol, cBoard[nIndex1][nIndex2]));
+        } while (!nValidateMove(nBoardIndex[0], nBoardIndex[1], cBoard[--nBoardIndex[0]][--nBoardIndex[1]]));
         
-        move(nIndex1, nIndex2, nPlayer(i), cBoard);
+        move(nBoardIndex[0], nBoardIndex[1], nPlayer(i), cBoard); /* Fix this --nBoardIndex[1] stuff */
 
     }
 
@@ -80,20 +75,19 @@ void main()
     GAME LOGIC FUNCTIONS' DEFINITIONS
 */
 /* function to ask the player for input and return the indices of the board*/
-int *nAskInput(int nPlayer)
+int nAskInput(int nBoardIndex[2], int nPlayer)
 {
     int nCol = 0, nRow = 0;
-    int nIdx[2];
 
         printf("\n");
         printf("Player %d, please choose a square to place your %c by selecting the column first \n"
                 "and then the row (e.g. 1 5 for the bottom left square).\n", nPlayer, (nPlayer == 1) ? 'X' : 'O');
         printf("Column (1-5): ");
-        scanf("%d", &nIdx[1]);
+        scanf("%d", &nBoardIndex[1]);
         printf("Row (1-5): ");
-        scanf("%d", &nIdx[0]);
+        scanf("%d", &nBoardIndex[0]);
 
-    return nIdx;
+    return nBoardIndex;
 
 }
 
