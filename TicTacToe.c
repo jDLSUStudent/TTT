@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+const int PLAYERS = 2;
+const int CHOICES = 8;
 /*
     GAME LOGIC FUNCTIONS
 */
@@ -8,7 +10,7 @@ int nCheckWinner();
 int nPlayer();
 int *nAskInput();
 int printAbilities();
-int *nChooseAbilities();
+int nChooseAbilities();
 void move();
 void printBoard();
 void gameResult();
@@ -20,8 +22,8 @@ void extraTurn();
 
 void main() 
 {
-    int nNumOfAbilities = 0, nIndex1 = 0, nIndex2 = 0, nRow = 0, nCol = 0, i = 0;
-    int *n = NULL, *nPlayer1Abilities = NULL, *nPlayer2Abilities = NULL;
+    int nNum = 0, nIndex1 = 0, nIndex2 = 0, nRow = 0, nCol = 0, i = 0;
+    int *n = NULL, *a;
  
     char cBoard [5][5] = {
                 {'_', '_', '_', '_', '_'},
@@ -32,18 +34,22 @@ void main()
                         };
 
     /*Run game*/
-    nNumOfAbilities = printAbilities();
+    nNum = printAbilities();
 
-    printf("Player 1\n");
-    nPlayer1Abilities = nChooseAbilities(nNumOfAbilities);
-    printf("Player 2\n");
-    nPlayer2Abilities = nChooseAbilities(nNumOfAbilities);
+    int nAbilities[PLAYERS][CHOICES];
 
-    //NOTE: Use nNumOfAbilities to determine length of array in loops
-    /*for (int j = 0; j < nNumOfAbilities; j++)
+    nChooseAbilities(nAbilities, nNum);
+
+    for (size_t i = 0; i < PLAYERS; i++)
     {
-        printf("arr[%d]=%d\n", j, nPlayer1Abilities[j]);
-    }*/
+        for (size_t j = 0; j < nNum; j++)
+        {
+            printf("arr[%d][%d] = %x\n",i, j, nAbilities[i][j]);
+        }
+    }
+
+
+    //NOTE: Use nNum to determine length of array in loops
 
     for (; i < 25 && !nCheckWinner(cBoard); i++)
     {
@@ -193,20 +199,25 @@ int printAbilities()
 
 }
 
-int *nChooseAbilities(int nChoices)
+int nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int nNum)
 {
-    int nAbilities[nChoices], i = 0;
+    int  i = 0, j = 0; 
 
-    for (; i < nChoices; i++)
+    for (; i < PLAYERS; i++)
     {
-        if (nChoices-i == 1)
-            printf("Please choose 1 more ability by entering its number: ");
-        else
-            printf("Please choose %d more abilities by entering the ability's number: ", nChoices-i);
-        
-        scanf("%d", &nAbilities[i]);       
-    }
+        printf("Player %d\n", (i == 0) ? 1 : 2 );
 
+        for (j=0; j < nNum; j++)
+        {
+            if (nNum-j == 1)
+                printf("Please choose 1 more ability by entering its number: ");
+            else
+                printf("Please choose %d more abilities by entering the ability's number: ", nNum-j);
+            
+            scanf("%d", &nAbilities[i][j]);       
+        }
+
+    }
     return nAbilities;
 }
 /*
