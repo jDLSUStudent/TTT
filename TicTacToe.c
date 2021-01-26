@@ -22,9 +22,9 @@ void extraTurn();
 
 void main() 
 {
-    int nNum = 0, nIndex1 = 0, nIndex2 = 0, nRow = 0, nCol = 0, i = 0;
+    int i = 0;
     int nAbilities[PLAYERS][CHOICES];
-    int nBoardIndex[2];
+    int nPlayerMove[2];
  
     char cBoard [5][5] = {
                 {'_', '_', '_', '_', '_'},
@@ -35,34 +35,17 @@ void main()
                         };
 
     /*Run game*/
-    nNum = printAbilities();
 
-
-    nChooseAbilities(nAbilities, nNum);
-
-
-
-    //NOTE: Use nNum to determine length of array in loops
+    nChooseAbilities(nAbilities, printAbilities);
 
     for (; i < 25 && !nCheckWinner(cBoard); i++)
     {
         printBoard(cBoard);
 
-        do
-        {
-            /*set cBoard indices from input*/
-            nAskInput(nBoardIndex, nPlayer(i));
-            /*
-            nRow = nBoardIndex[0];
-            nCol = nBoardIndex[1];
-            nIndex1 = --nBoardIndex[0];
-            nIndex2 = --nBoardIndex[1];
-            */
+     while (!nValidateMove(nPlayerMove[0], nPlayerMove[1], cBoard[--nPlayerMove[0]][--nPlayerMove[1]]));
+            nAskInput(nPlayerMove, nPlayer(i));
         
-        /*validate move*/
-        } while (!nValidateMove(nBoardIndex[0], nBoardIndex[1], cBoard[--nBoardIndex[0]][--nBoardIndex[1]]));
-        
-        move(nBoardIndex[0], nBoardIndex[1], nPlayer(i), cBoard); /* Fix this --nBoardIndex[1] stuff */
+        move(nPlayerMove[0], nPlayerMove[1], nPlayer(i), cBoard);
 
     }
 
@@ -75,19 +58,17 @@ void main()
     GAME LOGIC FUNCTIONS' DEFINITIONS
 */
 /* function to ask the player for input and return the indices of the board*/
-int nAskInput(int nBoardIndex[2], int nPlayer)
+int nAskInput(int nPlayerMove[2], int nPlayer)
 {
-    int nCol = 0, nRow = 0;
-
         printf("\n");
         printf("Player %d, please choose a square to place your %c by selecting the column first \n"
                 "and then the row (e.g. 1 5 for the bottom left square).\n", nPlayer, (nPlayer == 1) ? 'X' : 'O');
         printf("Column (1-5): ");
-        scanf("%d", &nBoardIndex[1]);
+        scanf("%d", &nPlayerMove[1]);
         printf("Row (1-5): ");
-        scanf("%d", &nBoardIndex[0]);
+        scanf("%d", &nPlayerMove[0]);
 
-    return nBoardIndex;
+    return nPlayerMove;
 
 }
 
@@ -110,9 +91,9 @@ int nPlayer(int i)
 }
 
 /* assign's the player character to the correct board index */
-void move(int nIndex1, int nIndex2, int nPlayer, char cBoard[5][5]) //is this needed?
+void move(int nRow, int nCol, int nPlayer, char cBoard[5][5]) //is this needed?
 {
-    cBoard[nIndex1][nIndex2] = (nPlayer == 1) ? 'X' : 'O';
+    cBoard[nRow][nCol] = (nPlayer == 1) ? 'X' : 'O';
 }
 
 /* checks the board after each mve to determine if there is a winner */
@@ -193,9 +174,9 @@ int printAbilities()
 
 }
 
-int nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int nNum)
+int nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
 {
-    int  i = 0, j = 0; 
+    int nNum = numOfChoices(), i = 0, j = 0; 
 
     for (; i < PLAYERS; i++)
     {
