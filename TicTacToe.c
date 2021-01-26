@@ -130,7 +130,7 @@ int nCheckWinner(char cBoard[5][5])
     return nWinner;
 }
 
-/* validates each set if inputs from the player */
+/* validates each set of inputs from the player */
 int nValidateMove(int nRow,int nCol,int nBoardIndex)
 {
     int nValid = 0;
