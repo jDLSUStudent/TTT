@@ -22,6 +22,7 @@ void playerAbilities();
 void extraTurn();
 void steal();
 void cleanCorners();
+void rowWipe();
 
 void main() 
 {
@@ -39,15 +40,15 @@ void main()
 
     /*Run game*/
 
-    nChooseAbilities(nAbilities, printAbilities);
+    //nChooseAbilities(nAbilities, printAbilities);
 
     for (; i < 25 && !nCheckWinner(cBoard); i++)
     {
         printBoard(cBoard);
         //playerAbilities(nAbilities, nPlayer(i));
-        if(i == 2)
+        if(i == 6)
         {
-            steal(cBoard, nPlayer(i));
+            cleanCorners(cBoard);
             printBoard(cBoard);
         }
         do
@@ -229,7 +230,6 @@ void steal(char cBoard[5][5], int nPlayer)
 
     int nIdx1 = nRow-1, nIdx2 = nCol-1;
 
-    //if (cBoard[nIdx1][nIdx2] != '_' && cBoard[nIdx1][nIdx2] != ' ')
     if (cBoard[nIdx1][nIdx2] == ((nPlayer == 1) ? 'O' : 'X'))
         cBoard[nIdx1][nIdx2] = (nPlayer == 1) ? 'X' : 'O';
     else
@@ -246,4 +246,20 @@ void cleanCorners(char cBoard[5][5])
     cBoard[2][2] = c;
     cBoard[4][0] = x;
     cBoard[4][4] = x;
+}
+
+void rowWipe(char cBoard[5][5], int nPlayer)
+{
+    int nRow = 0, nFlag = 0;
+
+    printf("Please chose a row where you occupy 2 squares: ");
+    scanf("%d", &nRow);
+
+    for (size_t i = 0; i < 5; i++)
+    {
+        if(cBoard[nRow][i] == ((nPlayer == 1) ? 'X' : 'O'));
+            
+
+    }
+
 }
