@@ -21,6 +21,7 @@ void playerAbilities();
 */
 void extraTurn();
 void steal();
+void cleanCorners();
 
 void main() 
 {
@@ -229,4 +230,15 @@ void steal(char cBoard[5][5], int nPlayer)
     else
         steal(cBoard, nPlayer);
 
+}
+
+void cleanCorners(char cBoard[5][5])
+{
+    char c = '_', x = ' ';
+
+    cBoard[0][0] = c;
+    cBoard[0][4] = c;
+    cBoard[3][3] = c;
+    cBoard[4][0] = x;
+    cBoard[4][4] = x;
 }
