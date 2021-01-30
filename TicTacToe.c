@@ -20,9 +20,9 @@ void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer);
     SPECIAL ABILITIES FUNCTIONS
 */
 void extraTurn();
-void steal();
-void cleanCorners();
-void rowWipe();
+void steal(char cBoard[5][5], char cToken);
+void cleanCorners(char cBoard[5][5]);
+void rowWipe(char cBoard[5][5], char cToken);
 
 void main() 
 {
@@ -221,10 +221,10 @@ void extraTurn()
 
 }
 
-void steal(char cBoard[5][5], int nPlayer)
+void steal(char cBoard[5][5], char cToken)
 {
     int nCol = 0, nRow = 0;
-    printf("player = %d\n", nPlayer);
+    char cOpponent = (cToken == 'X') ? 'O' : 'X';
 
     printf("Please choose a square to steal from your opponent: \n");
     printf("Column: ");
@@ -234,8 +234,8 @@ void steal(char cBoard[5][5], int nPlayer)
 
     int nIdx1 = nRow-1, nIdx2 = nCol-1;
 
-    if (cBoard[nIdx1][nIdx2] == ((nPlayer == 1) ? 'O' : 'X'))
-        cBoard[nIdx1][nIdx2] = (nPlayer == 1) ? 'X' : 'O';
+    if (cBoard[nIdx1][nIdx2] == cOpponent)
+        cBoard[nIdx1][nIdx2] = cToken;
     else
         steal(cBoard, nPlayer);
 
@@ -252,17 +252,16 @@ void cleanCorners(char cBoard[5][5])
     cBoard[4][4] = x;
 }
 
-void rowWipe(char cBoard[5][5], int nPlayer)
+void rowWipe(char cBoard[5][5], char cToken)
 {
     int nRow = 0, nCount = 0, i = 0;
-    char cToken = (nPlayer == 1) ? 'X' : 'O';
     char cOpponent = (cToken == 'X') ? 'O' : 'X';
 
     printf("Please chose a row where you occupy 2 squares: ");
     scanf("%d", &nRow);
     
     if (nRow < 1 || nRow > 5)
-        rowWipe(cBoard, nPlayer);
+        rowWipe(cBoard, cToken);
 
     int nIdx = nRow - 1;
     char cChar = (nIdx == 4) ? ' ' : '_';
@@ -283,6 +282,6 @@ void rowWipe(char cBoard[5][5], int nPlayer)
         }
     }
     else
-        rowWipe(cBoard, nPlayer);
+        rowWipe(cBoard, cToken);
 
 }
