@@ -11,10 +11,10 @@ int nCheckWinner();
 int nPlayer();
 int printAbilities();
 void nChooseAbilities();
-void move();
-void nAskInput();
+void move(int nPlayerMove[2], int nPlayer, char cBoard[5][5], char cToken);
+void askInput(int nPlayerMove[2], int nPlayer, char cToken);
 void printBoard();
-void gameResult();
+void gameResult(int nPlayer, int nCheckWinner, char cToken);
 void playerAbilities();
 /*
     SPECIAL ABILITIES FUNCTIONS
@@ -29,6 +29,7 @@ void main()
     int i = 0;
     int nAbilities[PLAYERS][CHOICES];
     int nPlayerMove[2];
+    char cToken = ' ';
  
     char cBoard [5][5] = {
                 {'_', '_', '_', '_', '_'},
@@ -46,22 +47,24 @@ void main()
     {
         printBoard(cBoard);
         //playerAbilities(nAbilities, nPlayer(i));
-        if(i == 5)
+        cToken = (nPlayer(i) == 1) ? 'X' : 'O';
+
+        /*if(i == 2)
         {
-            rowWipe(cBoard, nPlayer);
+            steal(cBoard, nPlayer);
             printBoard(cBoard);
-        }
+        }*/
         do
         {   /*set cBoard indices from input*/
-            nAskInput(nPlayerMove, nPlayer(i));
+            askInput(nPlayerMove, nPlayer(i), cToken);
         /*validate move*/
         } while (!nValidateMove(nPlayerMove[0], nPlayerMove[1], cBoard[--nPlayerMove[0]][--nPlayerMove[1]]));
         
-        move(nPlayerMove, nPlayer(i), cBoard);
+        move(nPlayerMove, nPlayer(i), cBoard, cToken);
 
     }
 
-    gameResult(nPlayer(i-1), nCheckWinner(cBoard));
+    gameResult(nPlayer(i-1), nCheckWinner(cBoard), cToken);
     printBoard(cBoard);
     printf("\n");
 
@@ -70,11 +73,11 @@ void main()
     GAME LOGIC FUNCTIONS' DEFINITIONS
 */
 /* function to ask the player for input and return the indices of the board*/
-void nAskInput(int nPlayerMove[2], int nPlayer)
+void askInput(int nPlayerMove[2], int nPlayer, char cToken)
 {
         printf("\n");
         printf("Player %d, please choose a square to place your %c by selecting the column first \n"
-                "and then the row (e.g. 1 5 for the bottom left square).\n", nPlayer, (nPlayer == 1) ? 'X' : 'O');
+                "and then the row (e.g. 1 5 for the bottom left square).\n", nPlayer, cToken);
         printf("Column (1-5): ");
         scanf("%d", &nPlayerMove[1]);
         printf("Row (1-5): ");
@@ -100,9 +103,9 @@ int nPlayer(int i)
 }
 
 /* assign's the player character to the correct board index */
-void move(int nPlayerMove[2], int nPlayer, char cBoard[5][5])
+void move(int nPlayerMove[2], int nPlayer, char cBoard[5][5], char cToken)
 {
-    cBoard[nPlayerMove[0]][nPlayerMove[1]] = (nPlayer == 1) ? 'X' : 'O';
+    cBoard[nPlayerMove[0]][nPlayerMove[1]] = cToken;
 }
 
 /* checks the board after each mve to determine if there is a winner */
@@ -149,13 +152,13 @@ int nValidateMove(int nRow,int nCol,int nBoardIndex)
 }
 
 /* print the results of the game */
-void gameResult(int nPlayer, int nCheckWinner)
+void gameResult(int nPlayer, int nCheckWinner, char cToken)
 {
     printf("\n");
 
     if (nCheckWinner)
     {
-        printf("%c Wins! ", (nPlayer == 1) ? 'X' : 'O');
+        printf("%c Wins! ", cToken);
         printf("Good job Player %d!\n", nPlayer);
     }
     else
@@ -221,6 +224,7 @@ void extraTurn()
 void steal(char cBoard[5][5], int nPlayer)
 {
     int nCol = 0, nRow = 0;
+    printf("player = %d\n", nPlayer);
 
     printf("Please choose a square to steal from your opponent: \n");
     printf("Column: ");
@@ -250,7 +254,7 @@ void cleanCorners(char cBoard[5][5])
 
 void rowWipe(char cBoard[5][5], int nPlayer)
 {
-    int nRow = 0, nFlag = 0, i = 0;
+    int nRow = 0, nCount = 0, i = 0;
     char cToken = (nPlayer == 1) ? 'X' : 'O';
     char cOpponent = (cToken == 'X') ? 'O' : 'X';
 
@@ -267,10 +271,10 @@ void rowWipe(char cBoard[5][5], int nPlayer)
     {
         printf("%c ", cBoard[nIdx][i]);
         if(cBoard[nIdx][i] == cToken)
-            nFlag++;
+            nCount++;
     }
 
-    if (nFlag > 1)
+    if (nCount > 1)
     {
         for (i = 0; i < 5; i++)
         {
