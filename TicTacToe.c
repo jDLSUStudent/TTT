@@ -267,6 +267,8 @@ void rowWipe(char cBoard[5][5], int nPlayer)
     {
         if(cBoard[nIdx][i] == cToken);
             nFlag++;
+        else
+            rowWipe(cBoard, nPlayer);
     }
 
     if (nFlag > 1)
