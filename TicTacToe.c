@@ -198,16 +198,28 @@ void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
 }
 void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer)
 {
-    for (size_t i = 0; i < CHOICES; i++)
+    for (int i = 0; i < CHOICES && nAbilities[nPlayer][i] != 0; i++)
     {
-        if (nAbilities[nPlayer][i] != 0)
             printf("%d ", nAbilities[nPlayer][i]);
     }
 }
-/*
+/*  
     SPECIAL ABILITIES FUNCTIONS' DEFINITIONS
 */
 void extraTurn()
 {
+
+}
+
+void steal(char cBoard[5][5], int nPlayer)
+{
+    int nCol = 0, nRow = 0;
+
+    printf("Please choose a square to steal from your opponent: \n");
+    printf("Column (1-5): ");
+    scanf("%d", &nCol);
+    printf("Row (1-5): ");
+    scanf("%d", &nRow);
+
 
 }
