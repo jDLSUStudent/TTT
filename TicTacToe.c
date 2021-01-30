@@ -6,16 +6,16 @@ const int CHOICES = 8;
 /*
     GAME LOGIC FUNCTIONS
 */
-int nValidateMove();
-int nCheckWinner();
-int nPlayer();
+int nValidateMove(int nRow,int nCol,int nBoardIndex);
+int nCheckWinner(char cBoard[5][5]);
+int nPlayer(int i);
 int printAbilities();
-void nChooseAbilities();
+void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)());
 void move(int nPlayerMove[2], int nPlayer, char cBoard[5][5], char cToken);
 void askInput(int nPlayerMove[2], int nPlayer, char cToken);
-void printBoard();
+void printBoard(char cBoard[5][5]);
 void gameResult(int nPlayer, int nCheckWinner, char cToken);
-void playerAbilities();
+void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer);
 /*
     SPECIAL ABILITIES FUNCTIONS
 */
