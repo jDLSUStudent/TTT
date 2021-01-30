@@ -11,7 +11,7 @@ int nCheckWinner(char cBoard[5][5]);
 int nPlayer(int i);
 int printAbilities();
 void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)());
-void move(int nPlayerMove[2], int nPlayer, char cBoard[5][5], char cToken);
+void move(int nPlayerMove[2], char cBoard[5][5], char cToken);
 void askInput(int nPlayerMove[2], int nPlayer, char cToken);
 void printBoard(char cBoard[5][5]);
 void gameResult(int nPlayer, int nCheckWinner, char cToken);
@@ -23,7 +23,8 @@ void extraTurn();
 void steal(char cBoard[5][5], char cToken);
 void cleanCorners(char cBoard[5][5]);
 void rowWipe(char cBoard[5][5], char cToken);
-void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int *, int *, int *), void (*board)(char *));
+void ladysChoice(char cBoard[5][5], int nPlayerMove[2], char cToken, int (*valid)(int *, int *, int *));
+
 void main() 
 {
     int i = 0;
@@ -50,18 +51,19 @@ void main()
         /*set cToken*/
         cToken = (nPlayer(i) == 1) ? 'X' : 'O';
 
-        /*if(i == 2)
+        if(i == 2)
         {
-            steal(cBoard, nPlayer);
+            ladysChoice(cBoard, nPlayerMove, cToken,
+                        nValidateMovenValidateMove(nPlayerMove[0], nPlayerMove[1], cBoard[--nPlayerMove[0]][--nPlayerMove[1]]));
             printBoard(cBoard);
-        }*/
+        }
         do
         {   /*set cBoard indices from input*/
             askInput(nPlayerMove, nPlayer(i), cToken);
         /*validate move*/
         } while (!nValidateMove(nPlayerMove[0], nPlayerMove[1], cBoard[--nPlayerMove[0]][--nPlayerMove[1]]));
         
-        move(nPlayerMove, nPlayer(i), cBoard, cToken);
+        move(nPlayerMove, cBoard, cToken);
 
     }
 
@@ -83,6 +85,7 @@ void askInput(int nPlayerMove[2], int nPlayer, char cToken)
         scanf("%d", &nPlayerMove[1]);
         printf("Row (1-5): ");
         scanf("%d", &nPlayerMove[0]);
+        
 }
 
 /* prints the board */
@@ -104,7 +107,7 @@ int nPlayer(int i)
 }
 
 /* assign's the player character to the correct board index */
-void move(int nPlayerMove[2], int nPlayer, char cBoard[5][5], char cToken)
+void move(int nPlayerMove[2], char cBoard[5][5], char cToken)
 {
     cBoard[nPlayerMove[0]][nPlayerMove[1]] = cToken;
 }
@@ -286,8 +289,22 @@ void rowWipe(char cBoard[5][5], char cToken)
 
 }
 
-void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int *, int *, int *), void (*board)(char *))
+void ladysChoice(char cBoard[5][5],int nPlayerMove[2], char cToken, int (*valid)(int *, int *, int *))
 {
     int nLady = (cToken == 'X' ? 2 : 1);
+
     printf("Player %d, please choose 3 empty squares to place your opponent's %c", nLady, cToken);
+    for (int i = 0; i < 4; i++)
+    {
+        do
+        {
+            printf("Column (1-5): ");
+            scanf("%d", &nPlayerMove[1]);
+            printf("Row (1-5): ");
+            scanf("%d", &nPlayerMove[0]);
+
+        } while (!valid(nPlayerMove[0], nPlayerMove[1], cBoard[--nPlayerMove[0]][--nPlayerMove[1]]));
+        
+        cBoard[nPlayerMove[0]][nPlayerMove[1]] = cToken;
+    }
 }
