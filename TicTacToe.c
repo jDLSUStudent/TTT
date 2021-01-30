@@ -265,20 +265,25 @@ void rowWipe(char cBoard[5][5], int nPlayer)
 
     for (; i < 5; i++)
     {
-        if(cBoard[nIdx][i] == cToken);
+        printf("%c ", cBoard[nIdx][i]);
+        if(cBoard[nIdx][i] == cToken)
             nFlag++;
-        else
-            rowWipe(cBoard, nPlayer);
     }
+        printf("\n");
+        printf("Flag = %d\n", nFlag);
 
     if (nFlag > 1)
     {
+        printf("token = %c\n", cToken);
+        printf("oppo = %c\n", cOpponent);
         for (i = 0; i < 5; i++)
         {
-            if(cBoard[nIdx][i] == cOpponent);
+            if(cBoard[nIdx][i] == cOpponent)
                 cBoard[nIdx][i] = cChar;
         }
 
     }
+    else
+        rowWipe(cBoard, nPlayer);
 
 }
