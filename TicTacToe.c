@@ -44,8 +44,12 @@ void main()
     for (; i < 25 && !nCheckWinner(cBoard); i++)
     {
         printBoard(cBoard);
-        playerAbilities(nAbilities, nPlayer(i));
-
+        //playerAbilities(nAbilities, nPlayer(i));
+        if(i == 2)
+        {
+            steal(cBoard, nPlayer(i));
+            printBoard(cBoard);
+        }
         do
         {   /*set cBoard indices from input*/
             nAskInput(nPlayerMove, nPlayer(i));
@@ -223,9 +227,10 @@ void steal(char cBoard[5][5], int nPlayer)
     printf("Row: ");
     scanf("%d", &nRow);
 
-    int nIdx1 = nCol--, nIdx2 = nRow--;
+    int nIdx1 = nRow-1, nIdx2 = nCol-1;
 
-    if (cBoard[nIdx1][nIdx2] == (nPlayer == 1) ? 'O' : 'X')
+    //if (cBoard[nIdx1][nIdx2] != '_' && cBoard[nIdx1][nIdx2] != ' ')
+    if (cBoard[nIdx1][nIdx2] == ((nPlayer == 1) ? 'O' : 'X'))
         cBoard[nIdx1][nIdx2] = (nPlayer == 1) ? 'X' : 'O';
     else
         steal(cBoard, nPlayer);
@@ -238,7 +243,7 @@ void cleanCorners(char cBoard[5][5])
 
     cBoard[0][0] = c;
     cBoard[0][4] = c;
-    cBoard[3][3] = c;
+    cBoard[2][2] = c;
     cBoard[4][0] = x;
     cBoard[4][4] = x;
 }
