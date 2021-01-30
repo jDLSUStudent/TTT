@@ -23,7 +23,7 @@ void extraTurn();
 void steal(char cBoard[5][5], char cToken);
 void cleanCorners(char cBoard[5][5]);
 void rowWipe(char cBoard[5][5], char cToken);
-
+void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int *, int *, int *), void (*board)(char *));
 void main() 
 {
     int i = 0;
@@ -47,6 +47,7 @@ void main()
     {
         printBoard(cBoard);
         //playerAbilities(nAbilities, nPlayer(i));
+        /*set cToken*/
         cToken = (nPlayer(i) == 1) ? 'X' : 'O';
 
         /*if(i == 2)
@@ -283,4 +284,10 @@ void rowWipe(char cBoard[5][5], char cToken)
     else
         rowWipe(cBoard, cToken);
 
+}
+
+void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int *, int *, int *), void (*board)(char *))
+{
+    int nLady = (cToken == 'X' ? 2 : 1);
+    printf("Player %d, please choose 3 empty squares to place your opponent's %c", nLady, cToken);
 }
