@@ -269,19 +269,14 @@ void rowWipe(char cBoard[5][5], int nPlayer)
         if(cBoard[nIdx][i] == cToken)
             nFlag++;
     }
-        printf("\n");
-        printf("Flag = %d\n", nFlag);
 
     if (nFlag > 1)
     {
-        printf("token = %c\n", cToken);
-        printf("oppo = %c\n", cOpponent);
         for (i = 0; i < 5; i++)
         {
             if(cBoard[nIdx][i] == cOpponent)
                 cBoard[nIdx][i] = cChar;
         }
-
     }
     else
         rowWipe(cBoard, nPlayer);
