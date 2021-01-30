@@ -268,7 +268,6 @@ void rowWipe(char cBoard[5][5], char cToken)
 
     for (; i < 5; i++)
     {
-        printf("%c ", cBoard[nIdx][i]);
         if(cBoard[nIdx][i] == cToken)
             nCount++;
     }
