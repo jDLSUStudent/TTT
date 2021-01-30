@@ -46,9 +46,9 @@ void main()
     {
         printBoard(cBoard);
         //playerAbilities(nAbilities, nPlayer(i));
-        if(i == 6)
+        if(i == 5)
         {
-            cleanCorners(cBoard);
+            rowWipe(cBoard, nPlayer);
             printBoard(cBoard);
         }
         do
@@ -251,6 +251,8 @@ void cleanCorners(char cBoard[5][5])
 void rowWipe(char cBoard[5][5], int nPlayer)
 {
     int nRow = 0, nFlag = 0, i = 0;
+    char cToken = (nPlayer == 1) ? 'X' : 'O';
+    char cOpponent = (cToken == 'X') ? 'O' : 'X';
 
     printf("Please chose a row where you occupy 2 squares: ");
     scanf("%d", &nRow);
@@ -263,7 +265,7 @@ void rowWipe(char cBoard[5][5], int nPlayer)
 
     for (; i < 5; i++)
     {
-        if(cBoard[nIdx][i] == ((nPlayer == 1) ? 'X' : 'O'));
+        if(cBoard[nIdx][i] == cToken);
             nFlag++;
     }
 
@@ -271,8 +273,8 @@ void rowWipe(char cBoard[5][5], int nPlayer)
     {
         for (i = 0; i < 5; i++)
         {
-            if(cBoard[nIdx][i] == ((nPlayer == 1) ? 'O' : 'X'));
-
+            if(cBoard[nIdx][i] == cOpponent);
+                cBoard[nIdx][i] = cChar;
         }
 
     }
