@@ -250,15 +250,30 @@ void cleanCorners(char cBoard[5][5])
 
 void rowWipe(char cBoard[5][5], int nPlayer)
 {
-    int nRow = 0, nFlag = 0;
+    int nRow = 0, nFlag = 0, i = 0;
 
     printf("Please chose a row where you occupy 2 squares: ");
     scanf("%d", &nRow);
+    
+    if (nRow < 1 || nRow > 5)
+        rowWipe(cBoard, nPlayer);
 
-    for (size_t i = 0; i < 5; i++)
+    int nIdx = nRow - 1;
+    char cChar = (nIdx == 4) ? ' ' : '_';
+
+    for (; i < 5; i++)
     {
-        if(cBoard[nRow][i] == ((nPlayer == 1) ? 'X' : 'O'));
-            
+        if(cBoard[nIdx][i] == ((nPlayer == 1) ? 'X' : 'O'));
+            nFlag++;
+    }
+
+    if (nFlag > 1)
+    {
+        for (i = 0; i < 5; i++)
+        {
+            if(cBoard[nIdx][i] == ((nPlayer == 1) ? 'O' : 'X'));
+
+        }
 
     }
 
