@@ -20,6 +20,7 @@ void playerAbilities();
     SPECIAL ABILITIES FUNCTIONS
 */
 void extraTurn();
+void steal();
 
 void main() 
 {
@@ -93,7 +94,7 @@ int nPlayer(int i)
 }
 
 /* assign's the player character to the correct board index */
-void move(int nPlayerMove[2], int nPlayer, char cBoard[5][5]) //is this needed?
+void move(int nPlayerMove[2], int nPlayer, char cBoard[5][5])
 {
     cBoard[nPlayerMove[0]][nPlayerMove[1]] = (nPlayer == 1) ? 'X' : 'O';
 }
@@ -216,10 +217,16 @@ void steal(char cBoard[5][5], int nPlayer)
     int nCol = 0, nRow = 0;
 
     printf("Please choose a square to steal from your opponent: \n");
-    printf("Column (1-5): ");
+    printf("Column: ");
     scanf("%d", &nCol);
-    printf("Row (1-5): ");
+    printf("Row: ");
     scanf("%d", &nRow);
 
+    int nIdx1 = nCol--, nIdx2 = nRow--;
+
+    if (cBoard[nIdx1][nIdx2] == (nPlayer == 1) ? 'O' : 'X')
+        cBoard[nIdx1][nIdx2] = (nPlayer == 1) ? 'X' : 'O';
+    else
+        steal(cBoard, nPlayer);
 
 }
