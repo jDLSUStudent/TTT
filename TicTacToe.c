@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /*are these considered to be global variables? */
-const int PLAYERS = 2;
+const int P = 2;
 const int CHOICES = 8;
 /*
     GAME LOGIC FUNCTIONS
@@ -10,12 +10,12 @@ int nValidateMove(int nRow,int nCol,int nBoardIndex);
 int nCheckWinner(char cBoard[5][5]);
 int nPlayer(int i);
 int printAbilities();
-void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)());
+void nChooseAbilities(int **, int);
 void move(int nPlayerMove[2], char cBoard[5][5], char cToken);
 void askInput(int nPlayerMove[2], char cToken);
 void printBoard(char cBoard[5][5]);
 void gameResult(int nCheckWinner, char cToken);
-void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer, void (*abilities)(int));
+void playerAbilities(int nAbilities[2][CHOICES], int nPlayer, void (*abilities)(int));
 void specialAbilities(int i);
 /*
     SPECIAL ABILITIES FUNCTIONS
@@ -30,8 +30,8 @@ void evenItOut(char cBoard[5][5], char cToken, void (*print)(char *));
 void main() 
 {
     int i = 0;
-    int nAbilities[PLAYERS][CHOICES];
     int nPlayerMove[2];
+    int nNumOfChoices;
     char cToken = ' ';
  
     char cBoard [5][5] = {
@@ -43,8 +43,10 @@ void main()
                         };
 
     /*Run game*/
+    nNumOfChoices =  printAbilities();
+    int nAbilities[2][nNumOfChoices];
 
-    nChooseAbilities(nAbilities, printAbilities);
+    nChooseAbilities(nAbilities, nNumOfChoices);
     /*for (size_t d = 0; d < 4; d++)
     {
         cBoard[4][d] = 'O';
@@ -191,28 +193,28 @@ int printAbilities()
 
 }
 
-void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
+void nChooseAbilities(int **p, int nNumOfChoices)
 {
-    int nNum = numOfChoices(), i = 0, j; 
+    int i = 0, j; 
 
-    for (; i < PLAYERS; i++)
+    for (; i < 2; i++)
     {
         printf("Player %d\n", (i == 0) ? 1 : 2 );
 
-        for (j = 0; j < nNum; j++)
+        for (j = 0; j < nNumOfChoices; j++)
         {
-            if (nNum-j == 1)
+            if (nNumOfChoices-j == 1)
                 printf("Please choose 1 more ability by entering its number: ");
             else
-                printf("Please choose %d more abilities by entering the ability's number: ", nNum-j);
+                printf("Please choose %d more abilities by entering the ability's number: ", nNumOfChoices-j);
             
-            scanf("%d", &nAbilities[i][j]);       
+            scanf("%d", &p[i][j]);       
         }
 
     }
 }
 
-void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer, void (*abilities)(int))
+void playerAbilities(int nAbilities[2][CHOICES], int nPlayer, void (*abilities)(int))
 {
     int nIdx = nPlayer - 1;
     printf("Your available abilities:\n");
