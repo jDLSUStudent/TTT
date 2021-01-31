@@ -24,7 +24,7 @@ void steal(char cBoard[5][5], char cToken);
 void cleanCorners(char cBoard[5][5]);
 void rowWipe(char cBoard[5][5], char cToken);
 void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int, int, int), void (*print)(char *));
-void evenItOut(char cBoard[5][5], char cToken);
+void evenItOut(char cBoard[5][5], char cToken, void (*print)(char *));
 
 void main() 
 {
@@ -44,6 +44,10 @@ void main()
     /*Run game*/
 
     //nChooseAbilities(nAbilities, printAbilities);
+    for (size_t d = 0; d < 4; d++)
+    {
+        cBoard[4][d] = 'O';
+    }
 
     for (; i < 25 && !nCheckWinner(cBoard); i++)
     {
@@ -54,7 +58,7 @@ void main()
 
         if(i == 2)
         {
-            ladysChoice(cBoard, cToken, nValidateMove, printBoard);
+            evenItOut(cBoard, cToken, printBoard);
         }
         do
         {   /*set cBoard indices from input*/
@@ -228,7 +232,7 @@ void extraTurn()
 void steal(char cBoard[5][5], char cToken)
 {
     int nCol = 0, nRow = 0;
-    char cOpponent = (cToken == 'X') ? 'O' : 'X';
+    char cOpponent = (cToken == 'X ') ? 'O' : 'X';
 
     printf("Please choose a square to steal from your opponent: \n");
     printf("Column: ");
@@ -313,7 +317,7 @@ void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int, int, int), vo
     print(cBoard);
 }
 
-void evenItOut(char cBoard[5][5], char cToken)
+void evenItOut(char cBoard[5][5], char cToken, void (*print)(char *))
 {
     int i = 0, j = 0, k = 0;
     int nTokenCount = 0, nOppoCount = 0, nCol = 0, nRow = 0, nIdx1 = 0, nIdx2 = 0;
@@ -330,11 +334,16 @@ void evenItOut(char cBoard[5][5], char cToken)
                 nOppoCount++;
         }
     }
+    printf("cToken = %c\n", cToken);
+    printf("cOpponent = %c\n", cOpponent);
+    printf("k < %d\n", (nOppoCount - nTokenCount));
 
     if (nOppoCount > nTokenCount)
     {
         for (; k < (nOppoCount - nTokenCount); k++)
         {
+            print(cBoard);
+
             do
             {
                 printf("Please choose a square to clear: \n");
@@ -347,11 +356,16 @@ void evenItOut(char cBoard[5][5], char cToken)
                 nIdx2 = nCol-1;
                 cChar = (nIdx1 == 4) ? ' ' : '_';
 
-                cBoard[nIdx1][nIdx2] = cChar;
+                printf("valid = %d\n", cBoard[nIdx1][nIdx2] != cOpponent);
+                printf("1: cBoard[%d][%d] = %c\n", nIdx1, nIdx2, cBoard[nIdx1][nIdx2]);
 
-            } while (!(cBoard[nIdx1][nIdx2] == cOpponent));
+            } while (cBoard[nIdx1][nIdx2] != cOpponent);
             
+            cBoard[nIdx1][nIdx2] = cChar;
+            printf("2: cBoard[%d][%d] = %c\n", nIdx1, nIdx2, cBoard[nIdx1][nIdx2]);
         }
     }
+    else
+        printf("Your opponent does not have more squares occupied than you.\n");
 
 }
