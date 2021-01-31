@@ -6,7 +6,7 @@ int nValidateMove(int, int, int);
 int nCheckWinner(char **);
 int nPlayer(int);
 int printAbilities();
-void nChooseAbilities(int **, int);
+void nChooseAbilities();
 void move(int *, char **, char);
 void askInput(int *, char);
 void printBoard(char **);
@@ -23,7 +23,7 @@ void rowWipe(char **, char);
 void ladysChoice(char **, char, int (*)(int, int, int), void (*)(char *));
 void evenItOut(char **, char, void (*)(char *));
 
-void main() 
+int main() 
 {
     int i = 0;
     int nPlayerMove[2];
@@ -73,6 +73,7 @@ void main()
     printBoard(cBoard);
     printf("\n");
 
+    return 0;
 }
 /*
     GAME LOGIC FUNCTIONS' DEFINITIONS
@@ -208,6 +209,7 @@ void nChooseAbilities(int **a, int nNumOfChoices)
         }
 
     }
+    printf("HI!\n");
 }
 
 void playerAbilities(int **a, int nPlayer, int nNumOfChoices, void (*abilities)(int))
