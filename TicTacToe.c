@@ -7,25 +7,25 @@ const int CHOICES = 8;
     GAME LOGIC FUNCTIONS
 */
 int nValidateMove(int, int, int);
-int nCheckWinner(char cBoard[5][5]);
+int nCheckWinner(char **);
 int nPlayer(int i);
 int printAbilities();
 void nChooseAbilities(int **, int);
-void move(int nPlayerMove[2], char cBoard[5][5], char cToken);
+void move(int nPlayerMove[2], char **, char cToken);
 void askInput(int nPlayerMove[2], char cToken);
-void printBoard(char cBoard[5][5]);
+void printBoard(char **);
 void gameResult(int nCheckWinner, char cToken);
 void playerAbilities(int **, int , int, void (*abilities)(int));
 void specialAbilities(int i);
 /*
     SPECIAL ABILITIES FUNCTIONS
 */
-void extraTurn(char cToken, char cBoard[5][5], int nPlayerMove[2], void (*move)(int *, char *, char), void (*input)(int *, char), int (*valid)(int, int, int));
-void steal(char cBoard[5][5], char cToken);
-void cleanCorners(char cBoard[5][5]);
-void rowWipe(char cBoard[5][5], char cToken);
-void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int, int, int), void (*print)(char *));
-void evenItOut(char cBoard[5][5], char cToken, void (*print)(char *));
+void extraTurn(char cToken, char **, int nPlayerMove[2], void (*move)(int *, char *, char), void (*input)(int *, char), int (*valid)(int, int, int));
+void steal(char **, char cToken);
+void cleanCorners(char **);
+void rowWipe(char **, char cToken);
+void ladysChoice(char **, char cToken, int (*valid)(int, int, int), void (*print)(char *));
+void evenItOut(char **, char cToken, void (*print)(char *));
 
 void main() 
 {
@@ -113,13 +113,13 @@ int nPlayer(int i)
 }
 
 /* assign's the player character to the correct board index */
-void move(int nPlayerMove[2], char cBoard[5][5], char cToken)
+void move(int nPlayerMove[2], char **cBoard, char cToken)
 {
     cBoard[nPlayerMove[0]][nPlayerMove[1]] = cToken;
 }
 
 /* checks the board after each mve to determine if there is a winner */
-int nCheckWinner(char cBoard[5][5])
+int nCheckWinner(char **cBoard)
 {
     int nWinner = 0, j = 0;
 
@@ -261,7 +261,10 @@ void specialAbilities(int i) //ternary for hidden
 /*  
     SPECIAL ABILITIES FUNCTIONS' DEFINITIONS
 */
-void extraTurn(char cToken, char cBoard[5][5], int nPlayerMove[2], void (*move)(int *, char *, char), void (*input)(int *, char), int (*valid)(int, int, int))
+void extraTurn(char cToken, char **cBoard, int nPlayerMove[2], 
+                void (*move)(int *, char *, char), 
+                void (*input)(int *, char), 
+                int (*valid)(int, int, int))
 {
     printf("Extra Turn:\n");
 
@@ -275,7 +278,7 @@ void extraTurn(char cToken, char cBoard[5][5], int nPlayerMove[2], void (*move)(
     
 }
 
-void steal(char cBoard[5][5], char cToken)
+void steal(char **cBoard, char cToken)
 {
     int nCol = 0, nRow = 0;
     char cOpponent = (cToken == 'X ') ? 'O' : 'X';
@@ -295,7 +298,7 @@ void steal(char cBoard[5][5], char cToken)
 
 }
 
-void cleanCorners(char cBoard[5][5])
+void cleanCorners(char **cBoard)
 {
     char c = '_', x = ' ';
 
@@ -306,7 +309,7 @@ void cleanCorners(char cBoard[5][5])
     cBoard[4][4] = x;
 }
 
-void rowWipe(char cBoard[5][5], char cToken)
+void rowWipe(char **cBoard, char cToken)
 {
     int nRow = 0, nCount = 0, i = 0;
     char cOpponent = (cToken == 'X') ? 'O' : 'X';
@@ -339,7 +342,7 @@ void rowWipe(char cBoard[5][5], char cToken)
 
 }
 
-void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int, int, int), void (*print)(char *))
+void ladysChoice(char **cBoard, char cToken, int (*valid)(int, int, int), void (*print)(char *))
 {
     int nLady = (cToken == 'X' ? 2 : 1);
     int nRow = 0, nCol = 0;
@@ -363,7 +366,7 @@ void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int, int, int), vo
     print(cBoard);
 }
 
-void evenItOut(char cBoard[5][5], char cToken, void (*print)(char *))
+void evenItOut(char **cBoard, char cToken, void (*print)(char *))
 {
     int i = 0, j = 0, k = 0;
     int nTokenCount = 0, nOppoCount = 0, nCol = 0, nRow = 0, nIdx1 = 0, nIdx2 = 0;
