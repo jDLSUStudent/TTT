@@ -3,7 +3,7 @@
     GAME LOGIC FUNCTIONS
 */
 int nValidateMove(int, int, int);
-int nCheckWinner(char **);
+int nCheckWinner();
 int nPlayer(int);
 int printAbilities();
 void nChooseAbilities();
@@ -47,8 +47,7 @@ int main()
     {
         cBoard[4][d] = 'O';
     }*/
-
-    for (; i < 25 && !nCheckWinner(cBoard); i++)
+    for (; i < 25 && !nCheckWinner((char *)cBoard); i++)
     {
         playerAbilities(nAbilities, nPlayer(i), nNumOfChoices, specialAbilities);
         printBoard(cBoard);
@@ -116,9 +115,10 @@ void move(int *nSquare, char **cBoard, char cToken)
 }
 
 /* checks the board after each mve to determine if there is a winner */
-int nCheckWinner(char **cBoard)
+int nCheckWinner(char cBoard[5][5])
 {
     int nWinner = 0, j = 0;
+    printf("HI!!!!\n");
 
     if((cBoard[0][0]==cBoard[1][1] 
         && cBoard[0][0]==cBoard[2][2] 
@@ -207,9 +207,7 @@ void nChooseAbilities(int nNumOfChoices, int nAbilities[2][nNumOfChoices])
             
             scanf("%d", &nAbilities[i][j]);       
         }
-
     }
-    printf("HI!\n");
 }
 
 void playerAbilities(int **a, int nPlayer, int nNumOfChoices, void (*abilities)(int))
