@@ -11,7 +11,7 @@ void move(int *, char **, char);
 void askInput(int *, char);
 void printBoard(char **);
 void gameResult(int, char);
-void playerAbilities(int **, int, int, void (*)(int));
+void playerAbilities();
 void specialAbilities(int i);
 /*
     SPECIAL ABILITIES FUNCTIONS
@@ -49,7 +49,7 @@ int main()
     }*/
     for (; i < 25 && !nCheckWinner((char *)cBoard); i++)
     {
-        playerAbilities(nAbilities, nPlayer(i), nNumOfChoices, specialAbilities);
+        playerAbilities(nNumOfChoices,(int *)nAbilities, nPlayer(i), specialAbilities);
         printBoard(cBoard);
         /*set cToken*/
         cToken = (nPlayer(i) == 1) ? 'X' : 'O';
@@ -118,7 +118,6 @@ void move(int *nSquare, char **cBoard, char cToken)
 int nCheckWinner(char cBoard[5][5])
 {
     int nWinner = 0, j = 0;
-    printf("HI!!!!\n");
 
     if((cBoard[0][0]==cBoard[1][1] 
         && cBoard[0][0]==cBoard[2][2] 
@@ -210,15 +209,17 @@ void nChooseAbilities(int nNumOfChoices, int nAbilities[2][nNumOfChoices])
     }
 }
 
-void playerAbilities(int **a, int nPlayer, int nNumOfChoices, void (*abilities)(int))
+void playerAbilities(int nNumOfChoices, int nAbilities[2][nNumOfChoices], int nPlayer, void (*abilities)(int))
 {
     int nIdx = nPlayer - 1;
     
     printf("Your available abilities:\n");
+
     for (int i = 0; i < nNumOfChoices; i++)
     {
-            abilities(a[nIdx][i]);
+            abilities(nAbilities[nIdx][i]);
     }
+    printf("HI!!!!\n");
 }
 
 void specialAbilities(int i) //ternary for hidden
