@@ -2,7 +2,7 @@
 /*
     GAME LOGIC FUNCTIONS
 */
-int nValidateMove(int, int, int);
+int nValidateMove();
 int nCheckWinner();
 int nPlayer(int);
 int printAbilities();
@@ -21,7 +21,7 @@ void steal(char cBoard[5][5], char);
 void cleanCorners(char cBoard[5][5]);
 void rowWipe(char cBoard[5][5], char);
 void ladysChoice(char cBoard[5][5], char, int (*)(int, int, int), void (*)(char *));
-void evenItOut(char **, char, void (*)(char *));
+void evenItOut(char cBoard[5][5], char, void (*)(char *));
 
 int main() 
 {
@@ -270,7 +270,7 @@ void extraTurn(char cToken, char cBoard[5][5], int *nSquare,
 
     } while (!valid(nSquare[0], nSquare[1], cBoard[--nSquare[0]][--nSquare[1]]));
 
-    move(nSquare, cBoard, cToken);
+    move(nSquare, (char *)cBoard, cToken);
     
 }
 
@@ -345,7 +345,7 @@ void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int, int, int), vo
 
     for (int i = 0; i < 3; i++)
     {
-        print(cBoard);
+        print((char *)cBoard);
 
         do
         {
@@ -359,10 +359,10 @@ void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int, int, int), vo
         
         cBoard[nRow][nCol] = cToken;
     }
-    print(cBoard);
+    print((char *)cBoard);
 }
 
-void evenItOut(char **cBoard, char cToken, void (*print)(char *))
+void evenItOut(char cBoard[5][5], char cToken, void (*print)(char *))
 {
     int i = 0, j = 0, k = 0;
     int nTokenCount = 0, nOppoCount = 0, nCol = 0, nRow = 0, nIdx1 = 0, nIdx2 = 0;
@@ -384,7 +384,7 @@ void evenItOut(char **cBoard, char cToken, void (*print)(char *))
     {
         for (; k < (nOppoCount - nTokenCount); k++)
         {
-            print(cBoard);
+            print((char *)cBoard);
 
             do
             {
