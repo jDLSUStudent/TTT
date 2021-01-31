@@ -16,7 +16,7 @@ void specialAbilities(int i);
 /*
     SPECIAL ABILITIES FUNCTIONS
 */
-void extraTurn();
+void extraTurn(char, char **, int *, void (*)(int *, char *, char), void (*)(int *, char), int (*)(int, int, int));
 void steal(char **, char);
 void cleanCorners(char **);
 void rowWipe(char **, char);
