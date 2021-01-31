@@ -95,7 +95,7 @@ void askInput(int nPlayerMove[2], char cToken)
 }
 
 /* prints the board */
-void printBoard(char cBoard[5][5])
+void printBoard(char **cBoard)
 {
     printf("\n");
     printf("  1|2|3|4|5\n");
