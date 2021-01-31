@@ -1,8 +1,4 @@
 #include <stdio.h>
-
-/*are these considered to be global variables? */
-const int P = 2;
-const int CHOICES = 8;
 /*
     GAME LOGIC FUNCTIONS
 */
@@ -15,17 +11,17 @@ void move(int *, char **, char);
 void askInput(int *, char);
 void printBoard(char **);
 void gameResult(int nCheckWinner, char);
-void playerAbilities(int **, int , int, void (*abilities)(int));
+void playerAbilities(int **, int, int, void (*)(int));
 void specialAbilities(int i);
 /*
     SPECIAL ABILITIES FUNCTIONS
 */
-void extraTurn(char, char **, int *, void (*move)(int *, char *, char), void (*input)(int *, char), int (*valid)(int, int, int));
+void extraTurn(char, char **, int *, void (*)(int *, char *, char), void (*)(int *, char), int (*)(int, int, int));
 void steal(char **, char);
 void cleanCorners(char **);
 void rowWipe(char **, char);
-void ladysChoice(char **, char, int (*valid)(int, int, int), void (*print)(char *));
-void evenItOut(char **, char, void (*print)(char *));
+void ladysChoice(char **, char, int (*)(int, int, int), void (*)(char *));
+void evenItOut(char **, char, void (*)(char *));
 
 void main() 
 {
