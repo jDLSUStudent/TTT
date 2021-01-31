@@ -44,7 +44,7 @@ void main()
 
     /*Run game*/
 
-    //nChooseAbilities(nAbilities, printAbilities);
+    nChooseAbilities(nAbilities, printAbilities);
     /*for (size_t d = 0; d < 4; d++)
     {
         cBoard[4][d] = 'O';
@@ -52,8 +52,8 @@ void main()
 
     for (; i < 25 && !nCheckWinner(cBoard); i++)
     {
+        playerAbilities(nAbilities, nPlayer(i), specialAbilities);
         printBoard(cBoard);
-        //playerAbilities(nAbilities, nPlayer(i));
         /*set cToken*/
         cToken = (nPlayer(i) == 1) ? 'X' : 'O';
 
@@ -191,7 +191,37 @@ int printAbilities()
 
 }
 
-void specialAbilities(int i)
+void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
+{
+    int nNum = numOfChoices(), i = 0, j; 
+
+    for (; i < PLAYERS; i++)
+    {
+        printf("Player %d\n", (i == 0) ? 1 : 2 );
+
+        for (j = 0; j < nNum; j++)
+        {
+            if (nNum-j == 1)
+                printf("Please choose 1 more ability by entering its number: ");
+            else
+                printf("Please choose %d more abilities by entering the ability's number: ", nNum-j);
+            
+            scanf("%d", &nAbilities[i][j]);       
+        }
+
+    }
+}
+
+void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer, void (*abilities)(int))
+{
+    printf("Player %d abilities\n", nPlayer);
+    for (int i = 0; i < CHOICES && nAbilities[nPlayer][i] != 0; i++)
+    {
+            abilities(nAbilities[nPlayer][i]);
+    }
+}
+
+void specialAbilities(int i) //ternary for hidden
 {
     switch (i)
     {
@@ -222,35 +252,6 @@ void specialAbilities(int i)
     default:
         specialAbilities(i);
         break;
-    }
-}
-
-void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
-{
-    int nNum = numOfChoices(), i = 0, j; 
-
-    for (; i < PLAYERS; i++)
-    {
-        printf("Player %d\n", (i == 0) ? 1 : 2 );
-
-        for (j = 0; j < nNum; j++)
-        {
-            if (nNum-j == 1)
-                printf("Please choose 1 more ability by entering its number: ");
-            else
-                printf("Please choose %d more abilities by entering the ability's number: ", nNum-j);
-            
-            scanf("%d", &nAbilities[i][j]);       
-        }
-
-    }
-}
-
-void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer, void (*abilities)(int))
-{
-    for (int i = 0; i < CHOICES && nAbilities[nPlayer][i] != 0; i++)
-    {
-            printf("%d ", nAbilities[nPlayer][i]);
     }
 }
 /*  
