@@ -334,9 +334,6 @@ void evenItOut(char cBoard[5][5], char cToken, void (*print)(char *))
                 nOppoCount++;
         }
     }
-    printf("cToken = %c\n", cToken);
-    printf("cOpponent = %c\n", cOpponent);
-    printf("k < %d\n", (nOppoCount - nTokenCount));
 
     if (nOppoCount > nTokenCount)
     {
@@ -346,7 +343,7 @@ void evenItOut(char cBoard[5][5], char cToken, void (*print)(char *))
 
             do
             {
-                printf("Please choose a square to clear: \n");
+                printf("Please choose a square occupied by %c to clear: \n", cOpponent);
                 printf("Column: ");
                 scanf("%d", &nCol);
                 printf("Row: ");
@@ -356,13 +353,9 @@ void evenItOut(char cBoard[5][5], char cToken, void (*print)(char *))
                 nIdx2 = nCol-1;
                 cChar = (nIdx1 == 4) ? ' ' : '_';
 
-                printf("valid = %d\n", cBoard[nIdx1][nIdx2] != cOpponent);
-                printf("1: cBoard[%d][%d] = %c\n", nIdx1, nIdx2, cBoard[nIdx1][nIdx2]);
-
             } while (cBoard[nIdx1][nIdx2] != cOpponent);
             
             cBoard[nIdx1][nIdx2] = cChar;
-            printf("2: cBoard[%d][%d] = %c\n", nIdx1, nIdx2, cBoard[nIdx1][nIdx2]);
         }
     }
     else
