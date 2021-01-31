@@ -23,7 +23,7 @@ void extraTurn();
 void steal(char cBoard[5][5], char cToken);
 void cleanCorners(char cBoard[5][5]);
 void rowWipe(char cBoard[5][5], char cToken);
-void ladysChoice(char cBoard[5][5], int nPlayerMove[2], char cToken, int (*valid)(int *, int *, int *));
+void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int, int, int), void (*print)(char *));
 
 void main() 
 {
@@ -53,9 +53,7 @@ void main()
 
         if(i == 2)
         {
-            ladysChoice(cBoard, nPlayerMove, cToken,
-                        nValidateMovenValidateMove(nPlayerMove[0], nPlayerMove[1], cBoard[--nPlayerMove[0]][--nPlayerMove[1]]));
-            printBoard(cBoard);
+            ladysChoice(cBoard, cToken, nValidateMove, printBoard);
         }
         do
         {   /*set cBoard indices from input*/
@@ -144,7 +142,7 @@ int nCheckWinner(char cBoard[5][5])
 }
 
 /* validates each set of inputs from the player */
-int nValidateMove(int nRow,int nCol,int nBoardIndex)
+int nValidateMove(int nRow, int nCol, int nBoardIndex)
 {
     int nValid = 0;
 
@@ -289,22 +287,26 @@ void rowWipe(char cBoard[5][5], char cToken)
 
 }
 
-void ladysChoice(char cBoard[5][5],int nPlayerMove[2], char cToken, int (*valid)(int *, int *, int *))
+void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int, int, int), void (*print)(char *))
 {
     int nLady = (cToken == 'X' ? 2 : 1);
+    int nRow = 0, nCol = 0;
 
-    printf("Player %d, please choose 3 empty squares to place your opponent's %c", nLady, cToken);
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 3; i++)
     {
+        print(cBoard);
+
         do
         {
+            printf("Player %d, please choose %d empty square(s) to place your opponent's %c\n", nLady, 3-i, cToken);
             printf("Column (1-5): ");
-            scanf("%d", &nPlayerMove[1]);
+            scanf("%d", &nCol);
             printf("Row (1-5): ");
-            scanf("%d", &nPlayerMove[0]);
+            scanf("%d", &nRow);
 
-        } while (!valid(nPlayerMove[0], nPlayerMove[1], cBoard[--nPlayerMove[0]][--nPlayerMove[1]]));
+        } while (!valid(nRow, nCol, cBoard[--nRow][--nCol]));
         
-        cBoard[nPlayerMove[0]][nPlayerMove[1]] = cToken;
+        cBoard[nRow][nCol] = cToken;
     }
+    print(cBoard);
 }
