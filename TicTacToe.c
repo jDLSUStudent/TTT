@@ -7,7 +7,7 @@ int nCheckWinner();
 int nPlayer(int);
 int printAbilities();
 void nChooseAbilities();
-void move(int *, char **, char);
+void move(int *, char cBoard[5][5], char cToken);
 void askInput(int *, char);
 void printBoard();
 void gameResult(int, char);
@@ -16,7 +16,7 @@ void specialAbilities(int i);
 /*
     SPECIAL ABILITIES FUNCTIONS
 */
-void extraTurn(char, char **, int *, void (*)(int *, char *, char), void (*)(int *, char), int (*)(int, int, int));
+void extraTurn(char, char cBoard[5][5], int *, void (*)(int *, char *, char), void (*)(int *, char), int (*)(int, int, int));
 void steal(char **, char);
 void cleanCorners(char **);
 void rowWipe(char **, char);
@@ -109,7 +109,7 @@ int nPlayer(int i)
 }
 
 /* assign's the player character to the correct board index */
-void move(int *nSquare, char **cBoard, char cToken)
+void move(int *nSquare, char cBoard[5][5], char cToken)
 {
     cBoard[nSquare[0]][nSquare[1]] = cToken;
 }
@@ -213,13 +213,12 @@ void playerAbilities(int nNumOfChoices, int nAbilities[2][nNumOfChoices], int nP
 {
     int nIdx = nPlayer - 1;
     
-    printf("Your available abilities:\n");
+    printf("\nYour available abilities:\n");
 
     for (int i = 0; i < nNumOfChoices; i++)
     {
             abilities(nAbilities[nIdx][i]);
     }
-    printf("HI!!!!\n");
 }
 
 void specialAbilities(int i) //ternary for hidden
@@ -258,7 +257,7 @@ void specialAbilities(int i) //ternary for hidden
 /*  
     SPECIAL ABILITIES FUNCTIONS' DEFINITIONS
 */
-void extraTurn(char cToken, char **cBoard, int *nSquare, 
+void extraTurn(char cToken, char cBoard[5][5], int *nSquare, 
                 void (*move)(int *, char *, char), 
                 void (*input)(int *, char), 
                 int (*valid)(int, int, int))
@@ -278,7 +277,7 @@ void extraTurn(char cToken, char **cBoard, int *nSquare,
 void steal(char **cBoard, char cToken)
 {
     int nCol = 0, nRow = 0;
-    char cOpponent = (cToken == 'X ') ? 'O' : 'X';
+    char cOpponent = (cToken == 'X') ? 'O' : 'X';
 
     printf("Please choose a square to steal from your opponent: \n");
     printf("Column: ");
