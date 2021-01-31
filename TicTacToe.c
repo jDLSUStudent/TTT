@@ -24,6 +24,7 @@ void steal(char cBoard[5][5], char cToken);
 void cleanCorners(char cBoard[5][5]);
 void rowWipe(char cBoard[5][5], char cToken);
 void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int, int, int), void (*print)(char *));
+void evenItOut(char cBoard[5][5], char cToken);
 
 void main() 
 {
@@ -208,6 +209,7 @@ void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
 
     }
 }
+
 void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer)
 {
     for (int i = 0; i < CHOICES && nAbilities[nPlayer][i] != 0; i++)
@@ -239,7 +241,7 @@ void steal(char cBoard[5][5], char cToken)
     if (cBoard[nIdx1][nIdx2] == cOpponent)
         cBoard[nIdx1][nIdx2] = cToken;
     else
-        steal(cBoard, nPlayer);
+        steal(cBoard, cToken);
 
 }
 
@@ -309,4 +311,47 @@ void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int, int, int), vo
         cBoard[nRow][nCol] = cToken;
     }
     print(cBoard);
+}
+
+void evenItOut(char cBoard[5][5], char cToken)
+{
+    int i = 0, j = 0, k = 0;
+    int nTokenCount = 0, nOppoCount = 0, nCol = 0, nRow = 0, nIdx1 = 0, nIdx2 = 0;
+    char cOpponent = (cToken == 'X') ? 'O' : 'X';
+    char cChar;
+
+    for (; i < 5; i++)
+    {
+        for (j = 0; j < 5; j++)
+        {
+            if (cBoard[i][j] == cToken)
+                nTokenCount++;
+            else if (cBoard[i][j] == cOpponent)
+                nOppoCount++;
+        }
+    }
+
+    if (nOppoCount > nTokenCount)
+    {
+        for (; k < (nOppoCount - nTokenCount); k++)
+        {
+            do
+            {
+                printf("Please choose a square to clear: \n");
+                printf("Column: ");
+                scanf("%d", &nCol);
+                printf("Row: ");
+                scanf("%d", &nRow);
+
+                nIdx1 = nRow-1;
+                nIdx2 = nCol-1;
+                cChar = (nIdx1 == 4) ? ' ' : '_';
+
+                cBoard[nIdx1][nIdx2] = cChar;
+
+            } while (!(cBoard[nIdx1][nIdx2] == cOpponent));
+            
+        }
+    }
+
 }
