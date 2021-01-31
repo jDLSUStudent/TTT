@@ -8,11 +8,11 @@ const int CHOICES = 8;
 */
 int nValidateMove(int, int, int);
 int nCheckWinner(char **);
-int nPlayer(int i);
+int nPlayer(int);
 int printAbilities();
 void nChooseAbilities(int **, int);
-void move(int nPlayerMove[2], char **, char cToken);
-void askInput(int nPlayerMove[2], char cToken);
+void move(int *, char **, char cToken);
+void askInput(int *, char cToken);
 void printBoard(char **);
 void gameResult(int nCheckWinner, char cToken);
 void playerAbilities(int **, int , int, void (*abilities)(int));
@@ -20,7 +20,7 @@ void specialAbilities(int i);
 /*
     SPECIAL ABILITIES FUNCTIONS
 */
-void extraTurn(char cToken, char **, int nPlayerMove[2], void (*move)(int *, char *, char), void (*input)(int *, char), int (*valid)(int, int, int));
+void extraTurn(char cToken, char **, int *, void (*move)(int *, char *, char), void (*input)(int *, char), int (*valid)(int, int, int));
 void steal(char **, char cToken);
 void cleanCorners(char **);
 void rowWipe(char **, char cToken);
@@ -82,15 +82,15 @@ void main()
     GAME LOGIC FUNCTIONS' DEFINITIONS
 */
 /* function to ask the player for input and return the indices of the board*/
-void askInput(int nPlayerMove[2], char cToken)
+void askInput(int *nSquare, char cToken)
 {
         printf("\n");
         printf("Player %d, please choose a square to place your %c by selecting the column first \n"
                 "and then the row (e.g. 1 5 for the bottom left square).\n", (cToken == 'X') ? 1 : 2, cToken);
         printf("Column (1-5): ");
-        scanf("%d", &nPlayerMove[1]);
+        scanf("%d", &nSquare[1]);
         printf("Row (1-5): ");
-        scanf("%d", &nPlayerMove[0]);
+        scanf("%d", &nSquare[0]);
         
 }
 
@@ -113,9 +113,9 @@ int nPlayer(int i)
 }
 
 /* assign's the player character to the correct board index */
-void move(int nPlayerMove[2], char **cBoard, char cToken)
+void move(int *nSquare, char **cBoard, char cToken)
 {
-    cBoard[nPlayerMove[0]][nPlayerMove[1]] = cToken;
+    cBoard[nSquare[0]][nSquare[1]] = cToken;
 }
 
 /* checks the board after each mve to determine if there is a winner */
@@ -261,7 +261,7 @@ void specialAbilities(int i) //ternary for hidden
 /*  
     SPECIAL ABILITIES FUNCTIONS' DEFINITIONS
 */
-void extraTurn(char cToken, char **cBoard, int nPlayerMove[2], 
+void extraTurn(char cToken, char **cBoard, int *nSquare, 
                 void (*move)(int *, char *, char), 
                 void (*input)(int *, char), 
                 int (*valid)(int, int, int))
@@ -270,11 +270,11 @@ void extraTurn(char cToken, char **cBoard, int nPlayerMove[2],
 
     do
     {
-        input(nPlayerMove, cToken);
+        input(nSquare, cToken);
 
-    } while (!valid(nPlayerMove[0], nPlayerMove[1], cBoard[--nPlayerMove[0]][--nPlayerMove[1]]));
+    } while (!valid(nSquare[0], nSquare[1], cBoard[--nSquare[0]][--nSquare[1]]));
 
-    move(nPlayerMove, cBoard, cToken);
+    move(nSquare, cBoard, cToken);
     
 }
 
