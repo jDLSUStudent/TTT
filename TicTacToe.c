@@ -11,21 +11,21 @@ int nCheckWinner(char **);
 int nPlayer(int);
 int printAbilities();
 void nChooseAbilities(int **, int);
-void move(int *, char **, char cToken);
-void askInput(int *, char cToken);
+void move(int *, char **, char);
+void askInput(int *, char);
 void printBoard(char **);
-void gameResult(int nCheckWinner, char cToken);
+void gameResult(int nCheckWinner, char);
 void playerAbilities(int **, int , int, void (*abilities)(int));
 void specialAbilities(int i);
 /*
     SPECIAL ABILITIES FUNCTIONS
 */
-void extraTurn(char cToken, char **, int *, void (*move)(int *, char *, char), void (*input)(int *, char), int (*valid)(int, int, int));
-void steal(char **, char cToken);
+void extraTurn(char, char **, int *, void (*move)(int *, char *, char), void (*input)(int *, char), int (*valid)(int, int, int));
+void steal(char **, char);
 void cleanCorners(char **);
-void rowWipe(char **, char cToken);
-void ladysChoice(char **, char cToken, int (*valid)(int, int, int), void (*print)(char *));
-void evenItOut(char **, char cToken, void (*print)(char *));
+void rowWipe(char **, char);
+void ladysChoice(char **, char, int (*valid)(int, int, int), void (*print)(char *));
+void evenItOut(char **, char, void (*print)(char *));
 
 void main() 
 {
