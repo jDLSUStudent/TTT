@@ -14,7 +14,7 @@ void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)());
 void move(int nPlayerMove[2], char cBoard[5][5], char cToken);
 void askInput(int nPlayerMove[2], int nPlayer, char cToken);
 void printBoard(char cBoard[5][5]);
-void gameResult(int nPlayer, int nCheckWinner, char cToken);
+void gameResult(int nCheckWinner, char cToken);
 void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer);
 /*
     SPECIAL ABILITIES FUNCTIONS
@@ -44,10 +44,10 @@ void main()
     /*Run game*/
 
     //nChooseAbilities(nAbilities, printAbilities);
-    /*for (size_t d = 0; d < 4; d++)
+    for (size_t d = 0; d < 4; d++)
     {
         cBoard[4][d] = 'O';
-    }*/
+    }
 
     for (; i < 25 && !nCheckWinner(cBoard); i++)
     {
@@ -70,7 +70,7 @@ void main()
 
     }
 
-    gameResult(nPlayer(i-1), nCheckWinner(cBoard), cToken);
+    gameResult(nCheckWinner(cBoard), cToken);
     printBoard(cBoard);
     printf("\n");
 
@@ -159,14 +159,14 @@ int nValidateMove(int nRow, int nCol, int nBoardIndex)
 }
 
 /* print the results of the game */
-void gameResult(int nPlayer, int nCheckWinner, char cToken)
+void gameResult(int nCheckWinner, char cToken)
 {
     printf("\n");
 
     if (nCheckWinner)
     {
         printf("%c Wins! ", cToken);
-        printf("Good job Player %d!\n", nPlayer);
+        printf("Good job Player %d!\n", (cToken == 'X') ? 1 : 2);
     }
     else
         printf("Its a draw!\n");
