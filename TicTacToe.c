@@ -42,7 +42,7 @@ int main()
     nNumOfChoices =  printAbilities();
     int nAbilities[2][nNumOfChoices];
 
-    nChooseAbilities(nAbilities, nNumOfChoices);
+    nChooseAbilities(nNumOfChoices, nAbilities);
     /*for (size_t d = 0; d < 4; d++)
     {
         cBoard[4][d] = 'O';
@@ -190,7 +190,7 @@ int printAbilities()
 
 }
 
-void nChooseAbilities(int **a, int nNumOfChoices)
+void nChooseAbilities(int nNumOfChoices, int nAbilities[2][nNumOfChoices])
 {
     int i = 0, j; 
 
@@ -205,7 +205,7 @@ void nChooseAbilities(int **a, int nNumOfChoices)
             else
                 printf("Please choose %d more abilities by entering the ability's number: ", nNumOfChoices-j);
             
-            scanf("%d", &a[i][j]);       
+            scanf("%d", &nAbilities[i][j]);       
         }
 
     }
