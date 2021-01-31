@@ -10,7 +10,7 @@ void nChooseAbilities(int **, int);
 void move(int *, char **, char);
 void askInput(int *, char);
 void printBoard(char **);
-void gameResult(int nCheckWinner, char);
+void gameResult(int, char);
 void playerAbilities(int **, int, int, void (*)(int));
 void specialAbilities(int i);
 /*
