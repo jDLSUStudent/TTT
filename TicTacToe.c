@@ -164,10 +164,7 @@ void gameResult(int nCheckWinner, char cToken)
     printf("\n");
 
     if (nCheckWinner)
-    {
-        printf("%c Wins! ", cToken);
-        printf("Good job Player %d!\n", (cToken == 'X') ? 1 : 2);
-    }
+        printf("%c Wins! Good job Player %d!\n", cToken, (cToken == 'X') ? 1 : 2);
     else
         printf("Its a draw!\n");
 }
