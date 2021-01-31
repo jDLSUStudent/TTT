@@ -6,7 +6,7 @@ const int CHOICES = 8;
 /*
     GAME LOGIC FUNCTIONS
 */
-int nValidateMove(int nRow,int nCol,int nBoardIndex);
+int nValidateMove(int, int, int);
 int nCheckWinner(char cBoard[5][5]);
 int nPlayer(int i);
 int printAbilities();
