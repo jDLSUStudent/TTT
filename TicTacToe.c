@@ -19,7 +19,8 @@ void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer);
 /*
     SPECIAL ABILITIES FUNCTIONS
 */
-void extraTurn(char cToken, char cBoard[5][5], int nPlayerMove[2], void (*move)(int *, char *, char), void (*input)(int *, int, char));
+//void extraTurn(char cToken, char cBoard[5][5], int nPlayerMove[2], void (*move)(int *, char *, char), void (*input)(int *, char));
+void extraTurn(int i);
 void steal(char cBoard[5][5], char cToken);
 void cleanCorners(char cBoard[5][5]);
 void rowWipe(char cBoard[5][5], char cToken);
@@ -56,10 +57,10 @@ void main()
         /*set cToken*/
         cToken = (nPlayer(i) == 1) ? 'X' : 'O';
 
-        /*if(i == 2)
+        if(i == 2)
         {
-            evenItOut(cBoard, cToken, printBoard);
-        }*/
+            extraTurn(i);
+        }
         do
         {   /*set cBoard indices from input*/
             askInput(nPlayerMove, cToken);
@@ -221,9 +222,9 @@ void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer)
 /*  
     SPECIAL ABILITIES FUNCTIONS' DEFINITIONS
 */
-void extraTurn(char cToken, char cBoard[5][5], int nPlayerMove[2], void (*move)(int *, char *, char), void (*input)(int *, int, char))
+void extraTurn(int i)
 {
-
+    --i;
 }
 
 void steal(char cBoard[5][5], char cToken)
