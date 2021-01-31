@@ -9,7 +9,7 @@ int printAbilities();
 void nChooseAbilities();
 void move(int *, char **, char);
 void askInput(int *, char);
-void printBoard(char **);
+void printBoard();
 void gameResult(int, char);
 void playerAbilities();
 void specialAbilities(int i);
@@ -47,9 +47,9 @@ int main()
     {
         cBoard[4][d] = 'O';
     }*/
-    for (; i < 25 && !nCheckWinner((char *)cBoard); i++)
+    for (; i < 25 && !nCheckWinner(cBoard); i++)
     {
-        playerAbilities(nNumOfChoices,(int *)nAbilities, nPlayer(i), specialAbilities);
+        playerAbilities(nNumOfChoices,nAbilities, nPlayer(i), specialAbilities);
         printBoard(cBoard);
         /*set cToken*/
         cToken = (nPlayer(i) == 1) ? 'X' : 'O';
@@ -91,7 +91,7 @@ void askInput(int *nSquare, char cToken)
 }
 
 /* prints the board */
-void printBoard(char **cBoard)
+void printBoard(char cBoard[5][5])
 {
     printf("\n");
     printf("  1|2|3|4|5\n");
