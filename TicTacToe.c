@@ -17,10 +17,10 @@ void specialAbilities(int i);
     SPECIAL ABILITIES FUNCTIONS
 */
 void extraTurn(char, char cBoard[5][5], int *, void (*)(int *, char *, char), void (*)(int *, char), int (*)(int, int, int));
-void steal(char **, char);
-void cleanCorners(char **);
-void rowWipe(char **, char);
-void ladysChoice(char **, char, int (*)(int, int, int), void (*)(char *));
+void steal(char cBoard[5][5], char);
+void cleanCorners(char cBoard[5][5]);
+void rowWipe(char cBoard[5][5], char);
+void ladysChoice(char cBoard[5][5], char, int (*)(int, int, int), void (*)(char *));
 void evenItOut(char **, char, void (*)(char *));
 
 int main() 
@@ -274,7 +274,7 @@ void extraTurn(char cToken, char cBoard[5][5], int *nSquare,
     
 }
 
-void steal(char **cBoard, char cToken)
+void steal(char cBoard[5][5], char cToken)
 {
     int nCol = 0, nRow = 0;
     char cOpponent = (cToken == 'X') ? 'O' : 'X';
@@ -294,7 +294,7 @@ void steal(char **cBoard, char cToken)
 
 }
 
-void cleanCorners(char **cBoard)
+void cleanCorners(char cBoard[5][5])
 {
     char c = '_', x = ' ';
 
@@ -305,7 +305,7 @@ void cleanCorners(char **cBoard)
     cBoard[4][4] = x;
 }
 
-void rowWipe(char **cBoard, char cToken)
+void rowWipe(char cBoard[5][5], char cToken)
 {
     int nRow = 0, nCount = 0, i = 0;
     char cOpponent = (cToken == 'X') ? 'O' : 'X';
@@ -338,7 +338,7 @@ void rowWipe(char **cBoard, char cToken)
 
 }
 
-void ladysChoice(char **cBoard, char cToken, int (*valid)(int, int, int), void (*print)(char *))
+void ladysChoice(char cBoard[5][5], char cToken, int (*valid)(int, int, int), void (*print)(char *))
 {
     int nLady = (cToken == 'X' ? 2 : 1);
     int nRow = 0, nCol = 0;
