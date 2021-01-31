@@ -214,10 +214,11 @@ void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
 
 void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer, void (*abilities)(int))
 {
-    printf("Player %d abilities\n", nPlayer);
-    for (int i = 0; i < CHOICES && nAbilities[nPlayer][i] != 0; i++)
+    int nIdx = nPlayer - 1;
+    printf("Your available abilities:\n");
+    for (int i = 0; i < 2 && nAbilities[nIdx][i] != 0; i++)
     {
-            abilities(nAbilities[nPlayer][i]);
+            abilities(nAbilities[nIdx][i]);
     }
 }
 
