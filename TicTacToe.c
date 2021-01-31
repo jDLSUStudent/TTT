@@ -4,7 +4,7 @@
 */
 int nValidateMove();
 int nCheckWinner();
-int nPlayer(int);
+int nPlayer();
 int printAbilities();
 void nChooseAbilities();
 void move(int *, char cBoard[5][5], char cToken);
@@ -12,7 +12,7 @@ void askInput(int *, char);
 void printBoard();
 void gameResult(int, char);
 void playerAbilities();
-void specialAbilities(int i);
+void specialAbilities();
 /*
     SPECIAL ABILITIES FUNCTIONS
 */
