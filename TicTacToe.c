@@ -12,7 +12,7 @@ int nPlayer(int i);
 int printAbilities();
 void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)());
 void move(int nPlayerMove[2], char cBoard[5][5], char cToken);
-void askInput(int nPlayerMove[2], int nPlayer, char cToken);
+void askInput(int nPlayerMove[2], char cToken);
 void printBoard(char cBoard[5][5]);
 void gameResult(int nCheckWinner, char cToken);
 void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer);
@@ -62,7 +62,7 @@ void main()
         }*/
         do
         {   /*set cBoard indices from input*/
-            askInput(nPlayerMove, nPlayer(i), cToken);
+            askInput(nPlayerMove, cToken);
         /*validate move*/
         } while (!nValidateMove(nPlayerMove[0], nPlayerMove[1], cBoard[--nPlayerMove[0]][--nPlayerMove[1]]));
         
@@ -79,11 +79,11 @@ void main()
     GAME LOGIC FUNCTIONS' DEFINITIONS
 */
 /* function to ask the player for input and return the indices of the board*/
-void askInput(int nPlayerMove[2], int nPlayer, char cToken)
+void askInput(int nPlayerMove[2], char cToken)
 {
         printf("\n");
         printf("Player %d, please choose a square to place your %c by selecting the column first \n"
-                "and then the row (e.g. 1 5 for the bottom left square).\n", nPlayer, cToken);
+                "and then the row (e.g. 1 5 for the bottom left square).\n", (cToken == 'X') ? 1 : 2, cToken);
         printf("Column (1-5): ");
         scanf("%d", &nPlayerMove[1]);
         printf("Row (1-5): ");
