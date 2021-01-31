@@ -15,7 +15,8 @@ void move(int nPlayerMove[2], char cBoard[5][5], char cToken);
 void askInput(int nPlayerMove[2], char cToken);
 void printBoard(char cBoard[5][5]);
 void gameResult(int nCheckWinner, char cToken);
-void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer);
+void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer, void (*abilities)(int));
+void specialAbilities(int i);
 /*
     SPECIAL ABILITIES FUNCTIONS
 */
@@ -190,6 +191,40 @@ int printAbilities()
 
 }
 
+void specialAbilities(int i)
+{
+    switch (i)
+    {
+    case 1:
+        printf("Extra Turn\n");
+        break;
+    case 2:
+        printf("Steal\n");
+        break;
+    case 3:
+        printf("Clean Corners\n");
+        break;
+    case 4:
+        printf("Row Wipe\n");
+        break;
+    case 5:
+        printf("Lady's Choice\n");
+        break;
+    case 6:
+        printf("Even It Out\n");
+        break;
+    case 7:
+        printf("Missed Chance\n");
+        break;
+    case 8:
+        printf("Block\n");
+        break;
+    default:
+        specialAbilities(i);
+        break;
+    }
+}
+
 void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
 {
     int nNum = numOfChoices(), i = 0, j; 
@@ -211,7 +246,7 @@ void nChooseAbilities(int nAbilities[PLAYERS][CHOICES], int (*numOfChoices)())
     }
 }
 
-void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer)
+void playerAbilities(int nAbilities[PLAYERS][CHOICES], int nPlayer, void (*abilities)(int))
 {
     for (int i = 0; i < CHOICES && nAbilities[nPlayer][i] != 0; i++)
     {
